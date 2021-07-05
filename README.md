@@ -1,6 +1,8 @@
 # <p align="center">Twitch-Best-Of-Gen</p>
 
 ![GitHub](https://img.shields.io/github/license/BayoDev/Twitch-Best-Of-Gen)
+![GitHub top language](https://img.shields.io/github/languages/top/BayoDev/Twitch-Best-Of-Gen)
+![GitHub issues](https://img.shields.io/github/issues/BayoDev/Twitch-Best-Of-Gen)
 
 >This program create a video with best clips of a channel, **ready to be posted!**
 
