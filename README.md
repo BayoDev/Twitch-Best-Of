@@ -9,5 +9,10 @@
 <a name="inst"></a>
 ## Installation
 
+1. Clone the directory
+  ```git
+  git clone https://github.com/BayoDev/Twitch-Best-Of-Gen.git
+  ```
+
 <a name="usage"></a>
 ## Usage
