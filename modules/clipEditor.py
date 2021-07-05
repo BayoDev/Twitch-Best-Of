@@ -87,4 +87,3 @@ def editClips(save_path="."):
     final_clip.write_videofile(f"{save_path}/{file_name}.mp4",fps=video_fps)
     
     
-

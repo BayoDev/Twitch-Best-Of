@@ -68,6 +68,4 @@ def downloadClip(clip,fileName):
     urllib.request.urlretrieve(videoLink, f'./Clips/{fileName}.mp4') 
     time.sleep(5)
 
-
-
     
