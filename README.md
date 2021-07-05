@@ -2,6 +2,8 @@
 
 >This program create a video with best clips of a channel, **ready to be posted!**
 
+![Download repository](/Images/usage.gif)
+
 ## Content:
 1. [Installation](#inst)
 2. [Usage](#usage)
@@ -23,7 +25,7 @@
   ```git
   cd Twitch-Best-Of-main
   ```
-  > If installed via git name of the folder may vary
+  > If installed via git the name of the folder may vary
   ```pip
   pip install -r requirements.txt
   ```
