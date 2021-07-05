@@ -11,35 +11,46 @@ def initConf(bypass=False,verbose=False):
             print("Config file already exists, add argument bypass=True to overwrite it")
         return
     config_object = ConfigParser()
-    config_object['OPTIONS'] = {
-        "title":"clipsMontage",
-        "ranking_slide":"True",
-        "ranking_slide_time" : "4",
-        "outro":"True",
-        "outro_text":"Thanks for watching, subscribe!",
-        "outro_time" : "6",
-        "customFont" : "True"
+    config_object['OUTPUT'] = {
+        "title":"clipsMontage"
+    }
+    config_object['RANKING']={
+        "activate":"True",
+        "time":"4",
+        "font":"font",
+        "fontSize":"120"
+    }
+    config_object['OUTRO']={
+        "activate":"True",
+        "text":"Thanks for watching, subscribe!",
+        "time":"6",
+        "font":"font",
+        "fontSize":"120"
     }
     with open(PATH, 'w') as conf:
         config_object.write(conf)
 
 
-def getOutputName():
+#---OUTPUT---
+
+def getOutputTitle():
     global PATH
     config_object = ConfigParser()
     config_object.read(PATH)
     try:
-        response = config_object["OPTIONS"]["title"]
+        response = config_object["OUTPUT"]["title"]
     except:
         raise Exception("Field does not exists!")
     return response
+
+#---RANKING---
 
 def getRankingSlide():
     global PATH
     config_object = ConfigParser()
     config_object.read(PATH)
     try:
-        response = config_object["OPTIONS"]["ranking_slide"]
+        response = config_object["RANKING"]["activate"]
     except:
         raise Exception("Field does not exists!")
     if response == "False":
@@ -55,17 +66,39 @@ def getRankingSlideTime():
     config_object = ConfigParser()
     config_object.read(PATH)
     try:
-        response = config_object["OPTIONS"]["ranking_slide_time"]
+        response = config_object["RANKING"]["time"]
     except:
         raise Exception("Field does not exists!")
     return int(response)
+
+def getRankingFontName():
+    global PATH
+    config_object = ConfigParser()
+    config_object.read(PATH)
+    try:
+        response = config_object["RANKING"]["font"]
+    except:
+        raise Exception("Field does not exists!")
+    return int(response)
+
+def getRankingFontSize():
+    global PATH
+    config_object = ConfigParser()
+    config_object.read(PATH)
+    try:
+        response = config_object["RANKING"]["fontSize"]
+    except:
+        raise Exception("Field does not exists!")
+    return int(response)
+
+#---OUTRO---
 
 def getOutro():
     global PATH
     config_object = ConfigParser()
     config_object.read(PATH)
     try:
-        response = config_object["OPTIONS"]["outro"]
+        response = config_object["OUTRO"]["activate"]
     except:
         raise Exception("Field does not exists!")
     if response == "False":
@@ -81,7 +114,7 @@ def getOutroText():
     config_object = ConfigParser()
     config_object.read(PATH)
     try:
-        response = config_object["OPTIONS"]["outro_text"]
+        response = config_object["OUTRO"]["text"]
     except:
         raise Exception("Field does not exists!")
     return response
@@ -91,33 +124,27 @@ def getOutroTime():
     config_object = ConfigParser()
     config_object.read(PATH)
     try:
-        response = config_object["OPTIONS"]["outro_time"]
+        response = config_object["OUTRO"]["time"]
     except:
         raise Exception("Field does not exists!")
     return int(response)
 
-def getCustomFont():
+def getOutroFontName():
     global PATH
     config_object = ConfigParser()
     config_object.read(PATH)
     try:
-        response = config_object["OPTIONS"]["customFont"]
+        response = config_object["OUTRO"]["font"]
     except:
         raise Exception("Field does not exists!")
-    if response == "False":
-        response=False
-        return response
-    if response == "True":
-        response=True
-        return response
-    raise Exception("Error in config file")
-    
-def getFontSize():
+    return int(response)
+  
+def getOutroFontSize():
     global PATH
     config_object = ConfigParser()
     config_object.read(PATH)
     try:
-        response = config_object["OPTIONS"]["fontSize"]
+        response = config_object["OUTRO"]["fontSize"]
     except:
         raise Exception("Field does not exists!")
     return int(response)

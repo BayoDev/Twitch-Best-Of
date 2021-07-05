@@ -3,11 +3,8 @@ from modules.configHandler import *
 import sys
 
 def createTextSlide(text,size,bgcolor=(0,0,0),txtcolor=(255,255,255),file_name="slide",fontSize=100):
-    fontSize=int((getFontSize()/1920)*size[0])
-    if getCustomFont():
-        fnt = ImageFont.truetype('./res/font.ttf', fontSize)
-    else:
-        fnt = None
+    fontSize=int((getOutroFontSize()/1920)*size[0])
+    fnt = ImageFont.truetype(f'./res/{getOutroFontName()}.ttf', fontSize)
     slide = Image.new("RGB",size,color=bgcolor)
     d = ImageDraw.Draw(slide)
     w,h = d.textsize(text,font=fnt)
@@ -17,11 +14,8 @@ def createTextSlide(text,size,bgcolor=(0,0,0),txtcolor=(255,255,255),file_name="
 
 
 def createTransition(number,size,fontSize):
-    fontSize=int((getFontSize()/1920)*size[0])
-    if getCustomFont():
-        fnt = ImageFont.truetype('./res/font.ttf', fontSize)
-    else:
-        fnt = None
+    fontSize=int((getRankingFontSize()/1920)*size[0])
+    fnt = ImageFont.truetype(f'./res/{getRankingFontName()}.ttf', fontSize)
     transition = Image.new('RGB', size, color = (0, 0, 0))
     d = ImageDraw.Draw(transition)
     w, h = d.textsize(f"Clip #{number}",font=fnt)
@@ -30,6 +24,6 @@ def createTransition(number,size,fontSize):
     transition.show()
 
 
-createTransition(1,(1920,1080),getFontSize())
+createTransition(1,(1920,1080),getRankingFontSize())
 
-createTextSlide(getOutroText(),(1920,1080),getFontSize())
+createTextSlide(getOutroText(),(1920,1080),getOutroFontSize())
