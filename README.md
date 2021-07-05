@@ -2,6 +2,8 @@
 
 >This program create a video with best clips of a channel, **ready to be posted!**
 
+![Download repository](/Images/usage.gif)
+
 ## Content:
 1. [Installation](#inst)
 2. [Usage](#usage)
