@@ -14,7 +14,7 @@
   git clone https://github.com/BayoDev/Twitch-Best-Of-Gen.git
   ```
   Or
-  ![Download repository](/images/logo.png)
+  ![Download repository](/Images/install.gif)
 
 <a name="usage"></a>
 ## Usage
