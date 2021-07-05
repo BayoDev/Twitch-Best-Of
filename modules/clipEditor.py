@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from moviepy.editor import *
 from PIL import Image,ImageDraw,ImageFont
 from modules.configHandler import *

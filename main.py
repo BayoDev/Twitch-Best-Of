@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from modules.twitchClips import *
 from modules.clipEditor import *
 from modules.configHandler import *

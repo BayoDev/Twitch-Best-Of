@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from moviepy.editor import *
 import requests as rs
 from bs4 import BeautifulSoup as bs
