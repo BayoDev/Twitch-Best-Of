@@ -13,7 +13,8 @@
   ```git
   git clone https://github.com/BayoDev/Twitch-Best-Of-Gen.git
   ```
-  Or
+  __Or__
+  
   ![Download repository](/Images/install.gif)
 
 <a name="usage"></a>
