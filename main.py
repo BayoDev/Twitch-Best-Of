@@ -34,7 +34,8 @@ def getInputs():
             ft = 1
             ch = input("\n\nName of the channel:")
             print("\nChecking if the channel is available...")
-            resp = isChannel(ch)
+            if not ch.__contains__("@"):
+                resp = isChannel(ch)
         channel = ch
         option = 0
         while option <= 0 or option > 4:
