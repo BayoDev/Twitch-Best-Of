@@ -30,3 +30,20 @@
 
 <a name="usage"></a>
 ## Usage
+
+> **You must be in the directory to run the program!**
+
+```python
+python main.py
+```
+
+Follow the steps of the program to create your video!
+
+## DISCLAIMER
+
+* We aren't connected in any way with the twitch company
+* We do not take any responsability for any improper/illegal use of this program
+
+## CREDITS
+
+* Created by **Giulio Venturini**
