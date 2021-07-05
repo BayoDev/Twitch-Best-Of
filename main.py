@@ -20,7 +20,7 @@ def getInputs():
         print("██╔══██╗██╔══╝  ╚════██║   ██║╚════╝██║   ██║██╔══╝╚════╝██║   ██║██╔══╝  ██║╚██╗██║")
         print("██████╔╝███████╗███████║   ██║      ╚██████╔╝██║         ╚██████╔╝███████╗██║ ╚████║")
         print("╚═════╝ ╚══════╝╚══════╝   ╚═╝       ╚═════╝ ╚═╝          ╚═════╝ ╚══════╝╚═╝  ╚═══╝")
-        print("\n\t\tCreated by Giulio Venturini\tReleased under GNUv3.0 license\n\nWelcome to Best-Of-Gen, an auto Best-of Generator of the top clip of a channel!\n")
+        print("\n\t\tCreated by Giulio Venturini\tReleased under GPLv3.0 license\n\nWelcome to Best-Of-Gen, an auto Best-of Generator of the top clip of a channel!\n")
         print("1)Generate video")
         print("2)Credits and info")
         option = int(input("\n>>"))
