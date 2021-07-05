@@ -13,8 +13,8 @@
   ```git
   git clone https://github.com/BayoDev/Twitch-Best-Of-Gen.git
   ```
-  \tOr
-  
+  Or
+  ![Download repository](/images/logo.png)
 
 <a name="usage"></a>
 ## Usage
