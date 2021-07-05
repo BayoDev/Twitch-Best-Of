@@ -1,2 +1,20 @@
 # Twitch-Best-Of-Gen
- An auto best-of twitch clips video creator 
+
+>This program create a video with best clips of a channel, **ready to be posted!**
+
+## Content:
+1. [Installation](#inst)
+2. [Usage](#usage)
+
+<a name="inst"></a>
+## Installation
+
+1. Clone the directory
+  ```git
+  git clone https://github.com/BayoDev/Twitch-Best-Of-Gen.git
+  ```
+  Or
+  ![Download repository](/images/logo.png)
+
+<a name="usage"></a>
+## Usage
