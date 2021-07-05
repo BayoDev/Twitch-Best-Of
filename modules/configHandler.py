@@ -18,7 +18,7 @@ def initConf(bypass=False,verbose=False):
         "outro":"True",
         "outro_text":"Thanks for watching, subscribe!",
         "outro_time" : "6",
-        "customFont" : "False"
+        "customFont" : "True"
     }
     with open(PATH, 'w') as conf:
         config_object.write(conf)
@@ -42,7 +42,13 @@ def getRankingSlide():
         response = config_object["OPTIONS"]["ranking_slide"]
     except:
         raise Exception("Field does not exists!")
-    return response
+    if response == "False":
+        response=False
+        return response
+    if response == "True":
+        response=True
+        return response
+    raise Exception("Error in config file")
 
 def getRankingSlideTime():
     global PATH
@@ -52,7 +58,7 @@ def getRankingSlideTime():
         response = config_object["OPTIONS"]["ranking_slide_time"]
     except:
         raise Exception("Field does not exists!")
-    return response
+    return int(response)
 
 def getOutro():
     global PATH
@@ -62,7 +68,13 @@ def getOutro():
         response = config_object["OPTIONS"]["outro"]
     except:
         raise Exception("Field does not exists!")
-    return response
+    if response == "False":
+        response=False
+        return response
+    if response == "True":
+        response=True
+        return response
+    raise Exception("Error in config file")
 
 def getOutroText():
     global PATH
@@ -82,7 +94,7 @@ def getOutroTime():
         response = config_object["OPTIONS"]["outro_time"]
     except:
         raise Exception("Field does not exists!")
-    return response
+    return int(response)
 
 def getCustomFont():
     global PATH
@@ -92,4 +104,20 @@ def getCustomFont():
         response = config_object["OPTIONS"]["customFont"]
     except:
         raise Exception("Field does not exists!")
-    return response
+    if response == "False":
+        response=False
+        return response
+    if response == "True":
+        response=True
+        return response
+    raise Exception("Error in config file")
+    
+def getFontSize():
+    global PATH
+    config_object = ConfigParser()
+    config_object.read(PATH)
+    try:
+        response = config_object["OPTIONS"]["fontSize"]
+    except:
+        raise Exception("Field does not exists!")
+    return int(response)

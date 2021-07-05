@@ -33,8 +33,11 @@ def getMaxFps(file_path):
     return int(max(fps))
     
 def createTextSlide(text,size,bgcolor=(0,0,0),txtcolor=(255,255,255),file_name="slide"):
-    fontSize=int((90/1920)*size[0])
-    fnt = ImageFont.truetype("./res/font.ttf",fontSize)
+    fontSize=int((getFontSize()/1920)*size[0])
+    if getCustomFont():
+        fnt = ImageFont.truetype('./res/font.ttf', fontSize)
+    else:
+        fnt = None
     slide = Image.new("RGB",size,color=bgcolor)
     d = ImageDraw.Draw(slide)
     w,h = d.textsize(text,font=fnt)
@@ -44,7 +47,7 @@ def createTextSlide(text,size,bgcolor=(0,0,0),txtcolor=(255,255,255),file_name="
 
 
 def createTransition(number,size):
-    fontSize=int((120/1920)*size[0])
+    fontSize=int((getFontSize()/1920)*size[0])
     if getCustomFont():
         fnt = ImageFont.truetype('./res/font.ttf', fontSize)
     else:
