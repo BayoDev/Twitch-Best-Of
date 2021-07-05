@@ -14,7 +14,7 @@
 1. [Installation](#inst)
 2. [Usage](#usage)
 3. [Customization](#custom)
-4. [DISCLAIMER](#disclaimer)
+4. [:warning:DISCLAIMER:warning:](#disclaimer)
 5. [CREDITS](#credits)
 
 <a name="inst"></a>
@@ -68,7 +68,7 @@ outro_time | Duration of the outro slide
 customFont | Abilitate[True]/Disabilitate[False] the usage of a custom font(more details in the config file)
 
 <a name="disclaimer"></a>
-## DISCLAIMER
+## :warning: DISCLAIMER :warning:
 
 * We aren't connected in any way with the twitch company
 * We do not take any responsability for any improper/illegal use of this program
