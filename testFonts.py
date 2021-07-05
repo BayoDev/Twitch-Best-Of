@@ -30,4 +30,6 @@ def createTransition(number,size,fontSize):
     transition.show()
 
 
+createTransition(1,(1920,1080),getFontSize())
+
 createTextSlide(getOutroText(),(1920,1080),getFontSize())
