@@ -67,6 +67,13 @@ outro_text | The text displayed in the outro slide
 outro_time | Duration of the outro slide
 customFont | Abilitate[True]/Disabilitate[False] the usage of a custom font(more details in the config file)
 
+You can test how the font size of the config file will be displayed on the slides by using the testFont.py
+
+While in the directory:
+```cmd
+python testFont.py
+```
+
 <a name="disclaimer"></a>
 ## :warning: DISCLAIMER :warning:
 
