@@ -57,16 +57,22 @@ Follow the steps of the program to create your video!
 
 You can customize some part of the code by modifying the config.ini file in the /res folder
 
-OPTION | DESCRIPTION
+OUTPUT | DESCRIPTION
 ------ | -----------
 title  | Name of the output video
-ranking_slide | Abilitate[True]/Disabilitate[False] the ranked slides in beetwen clips
-ranking_slide_time | Duration of ranked slides in seconds
-outro | Abilitate[True]/Disabilitate[False] the outro slide
-outro_text | The text displayed in the outro slide
-outro_time | Duration of the outro slide
-fontSize   | The font size of the text in the slides
-customFont | Abilitate[True]/Disabilitate[False] the usage of a custom font(more details in the config file)
+
+RANKING | DESCRIPTION
+--------|------------
+activate | Use ranking slides
+time | Duration in seconds of slides
+font | Name of the font file without the extension(must be .ftt),must be positioned in /res
+
+OUTRO | DESCRIPTION
+------|------------
+activate | Use outro slide
+text | The text that appear in the outro slide
+time | Duration of the slide in seconds
+font | Name of the font file without the extension(must be .ftt),must be positioned in /res
 
 You can test how the font size of the config file will be displayed on the slides by using the testFont.py
 
