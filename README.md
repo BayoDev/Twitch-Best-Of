@@ -65,6 +65,7 @@ ranking_slide_time | Duration of ranked slides in seconds
 outro | Abilitate[True]/Disabilitate[False] the outro slide
 outro_text | The text displayed in the outro slide
 outro_time | Duration of the outro slide
+fontSize   | The font size of the text in the slides
 customFont | Abilitate[True]/Disabilitate[False] the usage of a custom font(more details in the config file)
 
 You can test how the font size of the config file will be displayed on the slides by using the testFont.py
