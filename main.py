@@ -73,10 +73,10 @@ def getInputs():
     return channel,nclips,ranged,iPath
 
 def main():
-    if os.path.isfile(getOutputName()+"TEMP_MPY_wvf_snd.mp3"):
-        os.remove(getOutputName()+"TEMP_MPY_wvf_snd.mp3")
+    if os.path.isfile(getOutputTitle()+"TEMP_MPY_wvf_snd.mp3"):
+        os.remove(getOutputTitle()+"TEMP_MPY_wvf_snd.mp3")
     removeAllClips()
-    initConf(verbose=False)
+    initConf(verbose=False,bypass=True)
     channel,nclips,range,iPath = getInputs()
     print("\nFetching data...")
     data = fetchClips(channel,max=nclips,range=range)

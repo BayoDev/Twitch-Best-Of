@@ -33,11 +33,8 @@ def getMaxFps(file_path):
     return int(max(fps))
     
 def createTextSlide(text,size,bgcolor=(0,0,0),txtcolor=(255,255,255),file_name="slide"):
-    fontSize=int((getFontSize()/1920)*size[0])
-    if getCustomFont():
-        fnt = ImageFont.truetype('./res/font.ttf', fontSize)
-    else:
-        fnt = None
+    fontSize=int((getOutroFontSize()/1920)*size[0])
+    fnt = ImageFont.truetype(f'./res/{getOutroFontName()}.ttf', fontSize)
     slide = Image.new("RGB",size,color=bgcolor)
     d = ImageDraw.Draw(slide)
     w,h = d.textsize(text,font=fnt)
@@ -45,13 +42,9 @@ def createTextSlide(text,size,bgcolor=(0,0,0),txtcolor=(255,255,255),file_name="
     d.text(((size[0]-w)/2, (size[1]-h)/2),text=text,fill=txtcolor,font=fnt)
     slide.save(f"./Clips/{file_name}.png")
 
-
 def createTransition(number,size):
-    fontSize=int((getFontSize()/1920)*size[0])
-    if getCustomFont():
-        fnt = ImageFont.truetype('./res/font.ttf', fontSize)
-    else:
-        fnt = None
+    fontSize=int((getRankingFontSize()/1920)*size[0])
+    fnt = ImageFont.truetype(f'./res/{getRankingFontName()}.ttf', fontSize)
     transition = Image.new('RGB', size, color = (0, 0, 0))
     d = ImageDraw.Draw(transition)
     w, h = d.textsize(f"Clip #{number}",font=fnt)
@@ -60,7 +53,7 @@ def createTransition(number,size):
     transition.save(f"./Clips/transition{number}.png")
 
 def editClips(save_path="."):
-    file_name = getOutputName()
+    file_name = getOutputTitle()
     numberOfClips = sum([len(files) for r, d, files in os.walk("./Clips")])
     video_size = getMaxDimension("./Clips")
     video_fps = getMaxFps("./Clips")
