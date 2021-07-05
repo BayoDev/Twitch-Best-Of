@@ -1,2 +1,2 @@
 # Twitch-Best-Of-Gen
- An auto best-of twitch clips video creator 
+ This program create a video with the best clips of a streamer, ready to be posted! 
