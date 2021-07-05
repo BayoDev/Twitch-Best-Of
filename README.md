@@ -8,6 +8,9 @@
 
 ![Download repository](/Images/usage.gif)
 
+## RIGHT NOW YOU MUST HAVE CHROME INSTALLED AND A COMPATIBLE WEB DRIVER
+## WE ARE WORKING ON A COMPATIBILITY PATCH AND AN INSTALLATION GUIDE
+
 ## Content:
 1. [Installation](#inst)
 2. [Usage](#usage)
@@ -36,6 +39,8 @@
   ```pip
   pip install -r requirements.txt
   ```
+  
+  
 
 <a name="usage"></a>
 ## Usage
