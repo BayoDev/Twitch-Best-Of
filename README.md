@@ -1,4 +1,4 @@
-# Twitch-Best-Of-Gen
+# <p align="center">Twitch-Best-Of-Gen</p>
 
 >This program create a video with best clips of a channel, **ready to be posted!**
 
