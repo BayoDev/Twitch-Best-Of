@@ -16,6 +16,17 @@
   __Or__
   
   ![Download repository](/Images/install.gif)
+  
+2. Unzip the file if compressed
+
+3. Install requirements
+  ```git
+  cd Twitch-Best-Of-main
+  ```
+  > If installed via git name of the folder may vary
+  ```pip
+  pip install -r requirements.txt
+  ```
 
 <a name="usage"></a>
 ## Usage
