@@ -60,19 +60,36 @@ You can customize some part of the code by modifying the config.ini file in the 
 OUTPUT | DESCRIPTION
 ------ | -----------
 title  | Name of the output video
+cmdOnly| Set this to true if can use only a cmd interface
+oupath | This is used only if cmdOnly is True and set the directory where the final video will be saved
+
+INTRO | DESCRIPTION
+--------|------------
+activate | True to enable
+time | Duration in seconds 
+font | Name of the font file without the extension(must be .ftt),must be positioned in /res
+fontSize | The font-size of the text
+customBg | True to use a custom background image in the ranking slides
+customBgFileName | Name of the file of the custom background image(must be in /res)
 
 RANKING | DESCRIPTION
 --------|------------
-activate | Use ranking slides
-time | Duration in seconds of slides
+activate | True to enable
+time | Duration in seconds 
 font | Name of the font file without the extension(must be .ftt),must be positioned in /res
+fontSize | The font-size of the text
+customBg | True to use a custom background image in the ranking slides
+customBgFileName | Name of the file of the custom background image(must be in /res)
 
 OUTRO | DESCRIPTION
-------|------------
-activate | Use outro slide
-text | The text that appear in the outro slide
-time | Duration of the slide in seconds
+--------|------------
+activate | True to enable
+text | Text displayed
+time | Duration in seconds 
 font | Name of the font file without the extension(must be .ftt),must be positioned in /res
+fontSize | The font-size of the text
+customBg | True to use a custom background image in the ranking slides
+customBgFileName | Name of the file of the custom background image(must be in /res)
 
 You can test how the font size of the config file will be displayed on the slides by using the testFont.py
 
