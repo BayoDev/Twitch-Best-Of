@@ -2,9 +2,11 @@ from PIL import Image,ImageDraw,ImageFont
 from modules.configHandler import *
 import sys
 
-def createTextSlide(text,size,bgcolor=(0,0,0),txtcolor=(255,255,255),file_name="slide",fontSize=100):
-    fontSize=int((getOutroFontSize()/1920)*size[0])
-    fnt = ImageFont.truetype(f'./res/{getOutroFontName()}.ttf', fontSize)
+def createTextSlide(text,size,bgcolor=(0,0,0),txtcolor=(255,255,255),file_name="slide",font_name = None,fontSize=getOutroFontSize()):
+    fontSize=int((fontSize/1920)*size[0])
+    if font_name== None:
+        font_name = getOutroFontName()
+    fnt = ImageFont.truetype(f'./res/{font_name}.ttf', fontSize)
     slide = Image.new("RGB",size,color=bgcolor)
     d = ImageDraw.Draw(slide)
     w,h = d.textsize(text,font=fnt)
@@ -27,3 +29,5 @@ def createTransition(number,size,fontSize):
 createTransition(1,(1920,1080),getRankingFontSize())
 
 createTextSlide(getOutroText(),(1920,1080),getOutroFontSize())
+
+createTextSlide(f"Top 1 best channel clips of all time",(1920,1080),getIntroFontSize(),file_name="intro",font_name=getIntroFontName(),fontSize=getIntroFontSize())
