@@ -69,12 +69,6 @@ def createTextSlide(slide):
     h+= int(h*0.21)
     d.text(((slide.size[0]-w)/2, (slide.size[1]-h)/2),text=slide.text,fill=slide.txtColor,font=fnt)
     tr.save(f"./Clips/{slide.file_name}.png")
-
-def createOutroSlide(text="Test",size=(1920,1080),bgcolor=(0,0,0),txtcolor=(255,255,255),file_name=None,font_name="font",fontSize=100):
-    fontSize=int((fontSize/1920)*size[0])
-    if font_name==None:
-        raise Exception("Font name not specified!")
-    fnt = ImageFont.truetype(f"./res/{font_name}.ttf", fontSize)
     
 def createIntro(size,video_fps,numberOfClips,channel,time):
     if time == "24h":
@@ -109,20 +103,6 @@ def createTransition(size,video_fps,number):
     for s in range(video_fps*getRankingTime()):
         imgList.append(f'./Clips/transition{number}.png')
     return ImageSequenceClip(imgList,fps=video_fps)
-    
-    fontSize=int((getRankingFontSize()/1920)*size[0])
-    fnt = ImageFont.truetype(f'./res/{getRankingFontName()}.ttf', fontSize)
-    if getRankingCustomBg():
-        transition = Image.open(f"./res/{getRankingBgName()}")
-        if transition.size!=size:
-            transition=transition.resize(size)
-    else:
-        transition = Image.new('RGB', size, color = (0, 0, 0))
-    d = ImageDraw.Draw(transition)
-    w, h = d.textsize(f"Clip #{number}",font=fnt)
-    h += int(h*0.21)    
-    d.text(((size[0]-w)/2, (size[1]-h)/2), text=f"Clip #{number}", fill=(255,255,255), font=fnt)
-    transition.save(f"./Clips/transition{number}.png")
 
 def createOutro(size,video_fps):
     createTextSlide(Slide(text=getOutroText(),
