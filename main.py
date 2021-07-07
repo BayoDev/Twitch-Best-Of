@@ -67,7 +67,7 @@ def getInputs():
                 print("\nInvalid Directory!")
             i=1
             print("\nSelect a path to save the montage:")
-            if getCmdOnly():
+            if not getCmdOnly():
                 root = Tk()
                 root.withdraw()
                 iPath=askdirectory()
@@ -94,10 +94,6 @@ def main():
         quit()
     print("\nClips Downloaded!\n\nCreating the video...\n\n")
     editClips(save_path=iPath,channel=channel,time=range)
-    try:
-        removeAllClips()
-    except:
-        print("\nError while deleting the clips\nthe clips will be deleted the next time you run the program!")
     print("\n\n Video created!")
 
 if __name__ == '__main__':
