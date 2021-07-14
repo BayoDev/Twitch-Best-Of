@@ -5,6 +5,7 @@ import os
 PATH = "./res/config.ini"
 
 def initConf(bypass=False,verbose=False):
+    # Initialize Config file
     global PATH
     if os.path.isfile(PATH) and not bypass:
         if verbose:

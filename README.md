@@ -101,8 +101,10 @@ python testFont.py
 <a name="disclaimer"></a>
 ## :warning: DISCLAIMER :warning:
 
+* Your IP could be banned by Twitch, use the program **at your own risk!**
 * We aren't connected in any way with the twitch company
 * We do not take any responsability for any improper/illegal use of this program
+
 
 <a name="credits"></a>
 ## CREDITS
