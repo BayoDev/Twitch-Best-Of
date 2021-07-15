@@ -55,7 +55,7 @@ Follow the steps of the program to create your video!
 <a name="custom"></a>
 ## Customize
 
-You can customize some part of the code by modifying the config.ini file in the /res folder
+You can customize some part of the video by modifying the config.ini file in the /res folder
 
 OUTPUT | DESCRIPTION
 ------ | -----------
