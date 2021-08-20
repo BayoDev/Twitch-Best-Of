@@ -130,9 +130,10 @@ def main():
     print("\nFetching data...")
 
     data = fetchClips(channel,max=nclips,range=range)
-
+    
     i = 1
     print("\nData Fetched!\n\nDownloading clips...")
+    
     try:
         for clip in data:
             downloadClip(clip,f"clip{i}")
