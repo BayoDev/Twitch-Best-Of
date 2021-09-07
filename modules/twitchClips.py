@@ -8,9 +8,8 @@ import urllib.request
 import os 
 
 class Clip:
-    def __init__(self,url,title):
+    def __init__(self,url):
         self.url = url
-        self.title = title
 
 def isChannel(name):
     # Return the availability of a channel
@@ -54,10 +53,10 @@ def fetchClips(channel_name,range="7d",max=None):
     if range != "24h" and range != "7d" and range != "30d" and range != "all":
         raise Exception("Range not valid, allowed ranges: 24h, 7d, 30d, all")
     data = bs(getLoadedPageContent(f"https://www.twitch.tv/{channel_name}/clips?filter=clips&range={range}"),'html.parser')
-    clips = data.findAll("article",{"class": "sc-AxjAm dBWNsP"})
+    clips = data.findAll("article")
     response = []
     for element in clips:
-        response.append(Clip(f"https://www.twitch.tv"+element.find("a",{"data-a-target": "preview-card-image-link"})["href"],element.find("h3",{"class": "sc-AxirZ dqHsmV"})["title"]))
+        response.append(Clip(f"https://www.twitch.tv"+element.find("a",{"data-a-target": "preview-card-image-link"})["href"]))
     if max == None:
         return response
     else:
