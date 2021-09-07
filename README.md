@@ -8,8 +8,6 @@
 
 ![Download repository](/Images/usage.gif)
 
-## RIGHT NOW YOU MUST HAVE INSTALLED A COMPATIBLE WEB DRIVER FOR SELENIUM, WE ARE WORKING ON AN INSTALLATION GUIDE
-
 ## Content:
 1. [Installation](#inst)
 2. [Usage](#usage)
@@ -19,6 +17,8 @@
 
 <a name="inst"></a>
 ## Installation
+
+0. Make sure to have a webdriver installed and added to PATH, a guide can be found here: https://www.selenium.dev/documentation/getting_started/installing_browser_drivers/
 
 1. Clone the directory
   ```git
