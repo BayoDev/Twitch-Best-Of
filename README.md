@@ -59,6 +59,7 @@ Follow the steps of the program to create your video!
 ## Customize
 
 You can customize some part of the video by modifying the config.ini file in the /res folder
+> The file is created the first time that you run the program
 
 OUTPUT | DESCRIPTION
 ------ | -----------
