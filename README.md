@@ -65,7 +65,7 @@ OUTPUT | DESCRIPTION
 ------ | -----------
 title  | Name of the output video
 cmdOnly| Set this to true if can use only a cmd interface
-oupath | This is used only if cmdOnly is True and set the directory where the final video will be saved
+outPath | This is used only if cmdOnly is True and set the directory where the final video will be saved
 
 INTRO | DESCRIPTION
 --------|------------
