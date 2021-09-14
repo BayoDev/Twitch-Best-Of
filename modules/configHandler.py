@@ -18,7 +18,7 @@ def initConf(bypass=False,verbose=False):
         "outPath":"."
     }
     config_object['INTRO']={
-        "activate":"True",
+        "activate":"False",
         "time":"5",
         "font":"font",
         "fontSize":"90",
@@ -34,7 +34,7 @@ def initConf(bypass=False,verbose=False):
         "customBgFileName":"test.jpg"
     }
     config_object['OUTRO']={
-        "activate":"True",
+        "activate":"False",
         "text":"Thanks for watching, subscribe!",
         "time":"6",
         "font":"font",
