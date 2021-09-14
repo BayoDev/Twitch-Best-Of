@@ -113,10 +113,12 @@ def getInputs():
 def removeOldFiles():
     # Delete temporary file that may still exist if the program was
     # interrupted during the editing of the clips
-    if os.path.isfile(getOutputTitle()+"TEMP_MPY_wvf_snd.mp3"):
-        os.remove(getOutputTitle()+"TEMP_MPY_wvf_snd.mp3")
-
-    removeAllClips()
+    try:
+        if os.path.isfile(getOutputTitle()+"TEMP_MPY_wvf_snd.mp3"):
+            os.remove(getOutputTitle()+"TEMP_MPY_wvf_snd.mp3")
+        removeAllClips()
+    except:
+        return
 
 
 def main():
