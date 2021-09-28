@@ -27,13 +27,7 @@ def getLoadedPageContent(url,delay=10):
     try:
         options = webdriver.ChromeOptions()
     except:
-        try:
-            options=webdriver.Firefox()
-        except:
-            try:
-                options= webdriver.Edge()
-            except:
-                raise Exception("An error occurred while loading the selenium webdriver")
+        raise Exception("An error occurred while loading the selenium webdriver")
     options.add_argument('headless')
     driver = webdriver.Chrome(options=options)
     driver.get(url)
