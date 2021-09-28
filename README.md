@@ -18,7 +18,7 @@
 <a name="inst"></a>
 ## Installation
 
-### 0. *Make sure to have a chrome installed and a compatible webdriver installed and added to PATH*, a guide can be found <a href='https://www.selenium.dev/documentation/getting_started/installing_browser_drivers/'>here</a>
+### 0. *Make sure to have chrome installed and a compatible webdriver installed and added to PATH*, a guide can be found <a href='https://www.selenium.dev/documentation/getting_started/installing_browser_drivers/'>here</a>
 <br>
 
 ### 1. Clone the directory
