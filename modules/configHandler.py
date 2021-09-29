@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from configparser import ConfigParser
 import os
+import logging
 
 PATH = "./res/config.ini"
 
@@ -15,7 +16,7 @@ def initConf(bypass=False,verbose=False):
     config_object['OUTPUT'] = {
         "title":"clipsMontage",
         "cmdOnly":"False",
-        "outPath":"."
+        "outPath":"." 
     }
     config_object['INTRO']={
         "activate":"False",

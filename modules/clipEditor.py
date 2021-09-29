@@ -3,6 +3,7 @@ from moviepy.editor import *
 from PIL import Image,ImageDraw,ImageFont
 from modules.configHandler import *
 import random
+import logging
 
 class Slide:
     def __init__(self,text="Test",

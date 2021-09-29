@@ -5,7 +5,8 @@ from bs4 import BeautifulSoup as bs
 from selenium import webdriver
 import time
 import urllib.request 
-import os 
+import os
+import logging 
 
 class Clip:
     def __init__(self,url):
@@ -26,7 +27,8 @@ def getLoadedPageContent(url,delay=10):
     # after waiting {delay} seconds for the page to load load
     try:
         options = webdriver.ChromeOptions()
-    except:
+    except Exception as exc:
+        logging.error(exc)
         raise Exception("An error occurred while loading the selenium webdriver")
     options.add_argument('headless')
     driver = webdriver.Chrome(options=options)

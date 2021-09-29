@@ -5,8 +5,7 @@ from modules.configHandler import *
 import os
 from tkinter import Tk
 from tkinter.filedialog import askdirectory
-
-
+import logging
 
 def getInputs():
     # Start the GUI and get the following inputs:
@@ -123,9 +122,11 @@ def removeOldFiles():
 
 def main():
 
-    removeOldFiles()
-
     initConf(verbose=False)
+
+    logging.basicConfig(level=10,filename="log.txt",filemode='w')
+
+    removeOldFiles()
 
     channel,nclips,range,iPath = getInputs()
 
@@ -140,7 +141,8 @@ def main():
         for clip in data:
             downloadClip(clip,f"clip{i}")
             i+=1
-    except:
+    except Exception as exc:
+        logging.error(exc)
         print("An error occured while downloading the clips,stopping the execution")
         return
     
