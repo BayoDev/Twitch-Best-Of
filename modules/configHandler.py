@@ -7,6 +7,7 @@ PATH = "./res/config.ini"
 
 def initConf(bypass=False,verbose=False):
     # Initialize Config file
+    # If bypass=True set config file to default values
     global PATH
     if os.path.isfile(PATH) and not bypass:
         if verbose:
