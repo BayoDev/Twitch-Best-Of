@@ -32,7 +32,7 @@ def main(automated=False,name=None,nclips=None,range=None,iPath=None,type=None,l
 
     removeOldFiles()
 
-    if automated:
+    if not automated:
         name,nclips,range,iPath,type,langs = getInputs()
 
     cls()
