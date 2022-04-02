@@ -6,6 +6,7 @@ from modules.input_handler import *
 from modules.cmd_logs import *
 import os
 import logging
+from tqdm import tqdm
 
 def removeOldFiles():
     # Delete temporary file that may still exist if the program was
@@ -49,14 +50,12 @@ def main(automated=False,name=None,nclips=None,range=None,iPath=None,type=None,l
     info("Downloading clips")
     
     try:
-        for idx,clip in enumerate(data):
-            info(f"Downloading clip number {idx+1}")
+        for clip in tqdm(data):
             downloadClip(clip,f"clip{i}")
-            log("Clip downloaded")
             i+=1
     except Exception as exc:
         logging.error(exc)
-        log("Error while downloading the clip",success=False)
+        log("Error while downloading the clips",success=False)
         return False
     
     log("All clips downloaded")

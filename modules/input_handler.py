@@ -93,7 +93,7 @@ def getInputs():
         while type<=0 or type>2:
             cls()
             print("\nSelect source:\n")
-            print("\n1)Channel")
+            print("1)Channel")
             print("2)Category")
             type = int(input("\nChoice: "))
 
@@ -105,9 +105,9 @@ def getInputs():
             while not resp:
                 cls()
                 if ft!=0:
-                    print("\n\nChannel not available :/")
+                    print("\nChannel not available :/")
                 ft = 1
-                ch = input("\n\nName of the channel:")
+                ch = input("\nName of the channel:")
                 print("\nChecking if the channel is available...")
                 if not ch.__contains__("@"):
                     resp = isChannel(ch)
@@ -119,7 +119,7 @@ def getInputs():
             while not resp:
                 cls()
                 if ft!=0:
-                    print("\n\Category not available :/")
+                    print("\nCategory not available :/")
                 ft = 1
                 ca = input("\nName of the category:")
                 print("\nChecking if the category is available...")
@@ -157,7 +157,7 @@ def getTimePeriod():
     option = 0
     while option <= 0 or option > 4:
         cls()
-        print("\n\n\tChoose the range of the clip")
+        print("\n\tChoose the range of the clip")
         print("\n1)24 hours")
         print("2)7 days")
         print("3)30 days")

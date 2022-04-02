@@ -6,7 +6,7 @@ from selenium import webdriver
 import time
 import urllib.request 
 import os
-import logging 
+import logging
 
 class Clip:
     def __init__(self,url):
