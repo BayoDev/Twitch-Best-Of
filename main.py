@@ -7,8 +7,6 @@ from modules.cmd_logs import *
 import os
 import logging
 
-
-
 def removeOldFiles():
     # Delete temporary file that may still exist if the program was
     # interrupted during the editing of the clips
@@ -20,7 +18,11 @@ def removeOldFiles():
         return
 
 
-def main():
+def main(automated=False,name=None,nclips=None,range=None,iPath=None,type=None,langs=None):
+    if automated:
+        right,iPath = checkInputs(name,nclips,range,iPath,type,langs)
+        if not right:
+            return False
 
     initConf(verbose=False)
 
@@ -30,7 +32,8 @@ def main():
 
     removeOldFiles()
 
-    name,nclips,range,iPath,type,langs = getInputs()
+    if automated:
+        name,nclips,range,iPath,type,langs = getInputs()
 
     cls()
 
@@ -54,7 +57,7 @@ def main():
     except Exception as exc:
         logging.error(exc)
         log("Error while downloading the clip",success=False)
-        return
+        return False
     
     log("All clips downloaded")
     info("Creating the video")
@@ -64,7 +67,7 @@ def main():
     log("Video created")
     info("Interrupting the execution")
 
-    return
+    return True
 
 if __name__ == '__main__':
     main()

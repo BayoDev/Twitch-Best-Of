@@ -1,4 +1,7 @@
 # Local imports
+from xmlrpc.client import FastMarshaller
+
+from cv2 import fastNlMeansDenoising
 from .twitchClips import *
 from .configHandler import *
 from .cmd_logs import *
@@ -203,3 +206,43 @@ def getLanguages():
         except:
             pass
     return [available_langs[i] for i in selected]
+
+
+def checkInputs(name,nclips,range,iPath,type,langs):
+    global available_langs
+
+    # Check type
+    if type<1 or type>2:
+        return False,None
+
+    # Check name
+    if type==1:
+        if not isChannel(name):
+            return False,None
+    if type==2:
+        if not isCategory(name):
+            return False,None
+    
+    # Check nclips
+    if nclips<1 or nclips>19:
+        return False,None
+
+    # Check range
+    if range not in ['24h','7d','30d','all']:
+        return False,None
+
+    # Check iPath
+    if not getCmdOnly():
+        if not os.path.isdir(iPath) and not iPath==None:
+            return False,None
+    else:
+        iPath = getOutPath()
+
+    # Check langs
+    for lg in langs:
+        if lg not in available_langs:
+            return False,None
+
+    return True,iPath
+
+    

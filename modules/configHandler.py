@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 from configparser import ConfigParser
 import os
-import logging
 from .cmd_logs import *
 
 PATH = "./res/config.ini"
