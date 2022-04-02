@@ -2,6 +2,7 @@
 from configparser import ConfigParser
 import os
 import logging
+from .cmd_logs import *
 
 PATH = "./res/config.ini"
 
@@ -11,7 +12,7 @@ def initConf(bypass=False,verbose=False):
     global PATH
     if os.path.isfile(PATH) and not bypass:
         if verbose:
-            print("Config file already exists, add argument bypass=True to overwrite it")
+            info("Config file already exists, add argument bypass=True to overwrite it")
         return
     config_object = ConfigParser()
     config_object['OUTPUT'] = {

@@ -1,6 +1,7 @@
 # Local imports
 from .twitchClips import *
 from .configHandler import *
+from .cmd_logs import *
 
 # Imports
 import os
@@ -57,7 +58,7 @@ def getInputs():
     option = 0
     channel = ""
     while option <= 0 or option >= 2:
-        os.system('cls' if os.name == 'nt' else 'clear')
+        cls()
         print("")
         print("██████╗ ███████╗███████╗████████╗    ██████╗ ███████╗     ██████╗ ███████╗███╗   ██╗")
         print("██╔══██╗██╔════╝██╔════╝╚══██╔══╝   ██╔═══██╗██╔════╝    ██╔════╝ ██╔════╝████╗  ██║")
@@ -72,11 +73,11 @@ def getInputs():
         option = int(input("\n>>"))
         if option == 3:
             # Quit Option
-            os.system('cls' if os.name == 'nt' else 'clear')
+            cls()
             quit()
         if option == 2:
             # Credits Option
-            os.system('cls' if os.name == 'nt' else 'clear')
+            cls()
             print("\n\tBest-Of-Gen")
             print("\n\tCreated by Giulio Venturini")
             print("\n\tReleased under GPLv3.0 license")
@@ -87,7 +88,7 @@ def getInputs():
 
         type = 0
         while type<=0 or type>2:
-            os.system('cls' if os.name == 'nt' else 'clear')
+            cls()
             print("\nSelect source:\n")
             print("\n1)Channel")
             print("2)Category")
@@ -99,7 +100,7 @@ def getInputs():
             resp = False
             ft = 0
             while not resp:
-                os.system('cls' if os.name == 'nt' else 'clear')
+                cls()
                 if ft!=0:
                     print("\n\nChannel not available :/")
                 ft = 1
@@ -113,7 +114,7 @@ def getInputs():
             resp = False
             ft = 0
             while not resp:
-                os.system('cls' if os.name == 'nt' else 'clear')
+                cls()
                 if ft!=0:
                     print("\n\Category not available :/")
                 ft = 1
@@ -123,7 +124,7 @@ def getInputs():
                     resp = isCategory(ca)
             name = ca
 
-            os.system('cls' if os.name == 'nt' else 'clear')
+            cls()
 
             selection = input("\n\tDo you want to select a language?(y/n) ")
             if(selection=='y'):
@@ -138,7 +139,7 @@ def getInputs():
 
         option = 0
         while option <=0 or option >19:
-            os.system('cls' if os.name == 'nt' else 'clear')
+            cls()
             option = int(input("\nHow many clip do you want to use(1-19):"))
         nclips = option
 
@@ -152,7 +153,7 @@ def getInputs():
 def getTimePeriod():
     option = 0
     while option <= 0 or option > 4:
-        os.system('cls' if os.name == 'nt' else 'clear')
+        cls()
         print("\n\n\tChoose the range of the clip")
         print("\n1)24 hours")
         print("2)7 days")
@@ -173,7 +174,7 @@ def getDirectory():
     iPath = "./sas"
     i=0
     while (not os.path.isdir(iPath) or i == 0) and not iPath==None:
-        os.system('cls' if os.name == 'nt' else 'clear')
+        cls()
         if i==1:
             print("\nInvalid Directory!")
         i=1
@@ -191,7 +192,7 @@ def getLanguages():
     data = ''
     selected = []
     while data != 'exit':
-        os.system('cls' if os.name == 'nt' else 'clear')
+        cls()
         print("\n\tSelect languages(type exit to close):")
         for idx,lg in enumerate(available_langs):
             print(f"[{'x' if idx in selected else ' '}]{lg}")

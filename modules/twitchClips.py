@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from gettext import find
 from moviepy.editor import *
 import requests as rs
 from bs4 import BeautifulSoup as bs

@@ -3,6 +3,7 @@ from modules.twitchClips import *
 from modules.clipEditor import *
 from modules.configHandler import *
 from modules.input_handler import *
+from modules.cmd_logs import *
 import os
 import logging
 
@@ -23,13 +24,17 @@ def main():
 
     initConf(verbose=False)
 
+    initLog()
+
     logging.basicConfig(level=10,filename="log.txt",filemode='w')
 
     removeOldFiles()
 
     name,nclips,range,iPath,type,langs = getInputs()
 
-    print("\nFetching data...")
+    cls()
+
+    info("Fetching data")
 
     if type == 1:
         data = fetchClipsChannel(name,max=nclips,range=range)
@@ -37,24 +42,27 @@ def main():
         data = fetchClipsCategory(name,max=nclips,range=range,languages=langs)
 
     i = 1
-    print("\nData Fetched!\n\nDownloading clips...")
+    log("Data fetched")
+    info("Downloading clips")
     
     try:
         for idx,clip in enumerate(data):
-            print(f"\nDownloading clip {idx}")
+            info(f"Downloading clip number {idx+1}")
             downloadClip(clip,f"clip{i}")
-            print("\nClip downloaded!")
+            log("Clip downloaded")
             i+=1
     except Exception as exc:
         logging.error(exc)
-        print("An error occured while downloading the clips,stopping the execution")
+        log("Error while downloading the clip",success=False)
         return
     
-    print("\nAll clips Downloaded!\n\nCreating the video...\n\n")
+    log("All clips downloaded")
+    info("Creating the video")
 
     createVideo(save_path=iPath,channel=name,time=range)
 
-    print("\n\n Video created!")
+    log("Video created")
+    info("Interrupting the execution")
 
     return
 
