@@ -9,8 +9,19 @@ import os
 import logging
 
 class Clip:
-    def __init__(self,url):
+    url: str
+    title: str
+    channelName: str
+    duration: str
+
+    def __init__(self,url: str,title: str,channelName: str,duration: str):
         self.url = url
+        self.title = title
+        self.channelName = channelName
+        self.duration = duration
+
+    def print_info(self) -> None:
+        print(f"\nTitle: {self.title}\nUrl: {self.url}\nChannel Name: {self.channelName}\nDuration: {self.duration}\n")
 
 def isChannel(name):
     # Return the availability of a channel
@@ -71,7 +82,7 @@ def fetchClipsCategory(cat_name,range="7d",max=None,languages=[]):
     clips = data.findAll("article")
     response = []
     for element in clips:
-        response.append(Clip(f"https://www.twitch.tv"+element.find("a",{"data-a-target": "preview-card-image-link"})["href"]))
+        response.append(Clip(f"https://www.twitch.tv"+element.find("a",{"data-a-target": "preview-card-image-link"})["href"],element.find("h3").text,element.find("a",{"data-a-target": "preview-card-channel-link"}).text,element.find("a",{"data-a-target": "preview-card-image-link"}).find("div").findAll("div")[2].find("div").text))
     if max == None:
         return response
     else:
@@ -94,7 +105,7 @@ def fetchClipsChannel(channel_name,range="7d",max=None):
     clips = data.findAll("article")
     response = []
     for element in clips:
-        response.append(Clip(f"https://www.twitch.tv"+element.find("a",{"data-a-target": "preview-card-image-link"})["href"]))
+        response.append(Clip(f"https://www.twitch.tv"+element.find("a",{"data-a-target": "preview-card-image-link"})["href"],element.find("h3").text,element.find("a",{"data-a-target": "preview-card-channel-link"}).text,element.find("a",{"data-a-target": "preview-card-image-link"}).find("div").findAll("div")[2].find("div").text))
     if max == None:
         return response
     else:

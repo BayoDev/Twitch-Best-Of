@@ -246,3 +246,8 @@ def checkInputs(name,nclips,range,iPath,type,langs):
     return True,iPath
 
     
+def selectClips(clips: list):
+    print("\n\tFound clips:\n")
+    for idx,clip in enumerate(clips):
+        print(f"Clip {idx+1}:")
+        clip.print_info()
