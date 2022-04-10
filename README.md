@@ -4,7 +4,7 @@
 ![GitHub top language](https://img.shields.io/github/languages/top/BayoDev/Twitch-Best-Of-Gen)
 ![GitHub issues](https://img.shields.io/github/issues/BayoDev/Twitch-Best-Of-Gen)
 
->This program create a video with best clips of a channel, **ready to be posted** without using a token!
+>This program create a video scraping the best clips of a channel or category **ready to be posted** without using a token!
 
 ![Download repository](/Images/usage.gif)
 
