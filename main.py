@@ -4,6 +4,7 @@ from modules.clipEditor import *
 from modules.configHandler import *
 from modules.input_handler import *
 from modules.cmd_logs import *
+import threading
 import os
 import logging
 from tqdm import tqdm
@@ -19,9 +20,9 @@ def removeOldFiles():
         return
 
 
-def main(automated=False,name=None,nclips=None,range=None,iPath=None,type=None,langs=None):
+def main(automated=False,name=None,nclips=None,range_in=None,iPath=None,type=None,langs=None):
     if automated:
-        right,iPath = checkInputs(name,nclips,range,iPath,type,langs)
+        right,iPath = checkInputs(name,nclips,range_in,iPath,type,langs)
         if not right:
             return False
 
@@ -34,25 +35,36 @@ def main(automated=False,name=None,nclips=None,range=None,iPath=None,type=None,l
     removeOldFiles()
 
     if not automated:
-        name,nclips,range,iPath,type,langs = getInputs()
+        name,nclips,range_in,iPath,type,langs = getInputs()
 
     cls()
 
     info("Fetching data")
 
     if type == 1:
-        data = fetchClipsChannel(name,max=nclips,range=range)
+        data = fetchClipsChannel(name,max=nclips,range=range_in)
     elif type == 2:
-        data = fetchClipsCategory(name,max=nclips,range=range,languages=langs)
+        data = fetchClipsCategory(name,max=nclips,range=range_in,languages=langs)
 
     i = 1
     log("Data fetched")
     info("Downloading clips")
     
     try:
-        for clip in tqdm(data):
-            downloadClip(clip,f"clip{i}")
+        threads = []
+        for clip in data:
+            threads.append(threading.Thread(target=downloadClip,args=(clip,f"clip{i}")))
             i+=1
+        for tr in threads:
+            tr.start()
+        for i in tqdm(range(len(data))):
+            condition = True
+            while condition:
+                for tr in threads:
+                    if not tr.is_alive():
+                        threads.remove(tr)
+                        condition = False
+                        continue
     except Exception as exc:
         logging.error(exc)
         log("Error while downloading the clips",success=False)
@@ -61,7 +73,7 @@ def main(automated=False,name=None,nclips=None,range=None,iPath=None,type=None,l
     log("All clips downloaded")
     info("Creating the video")
 
-    createVideo(save_path=iPath,channel=name,time=range)
+    createVideo(save_path=iPath,channel=name,time=range_in)
 
     log("Video created")
     info("Interrupting the execution")
