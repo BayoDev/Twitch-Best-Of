@@ -3,6 +3,9 @@ from moviepy.editor import *
 import requests as rs
 from bs4 import BeautifulSoup as bs
 from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.expected_conditions import presence_of_element_located
 import time
 import urllib.request 
 import os
@@ -25,7 +28,7 @@ class Clip:
 
 def isChannel(name):
     # Return the availability of a channel
-    data = getLoadedPageContent("https://twitch.tv/"+name,delay=15)
+    data = getLoadedPageContent("https://twitch.tv/"+name+"/clips?filter=clips&range=all",type=None,delay=20)
     data = bs(data,'html.parser')
     doesExist = data.findAll("p",{"data-a-target":"core-error-message"})
     if len(doesExist)==0:
@@ -35,7 +38,7 @@ def isChannel(name):
 
 def isCategory(name):
     # Return the availability of a channel
-    data = getLoadedPageContent("https://www.twitch.tv/directory/game/"+name,delay=15)
+    data = getLoadedPageContent("https://www.twitch.tv/directory/game/"+name,type=None,delay=20)
     data = bs(data,'html.parser')
     doesExist = data.findAll("p",{"data-a-target":"core-error-message"})
     if len(doesExist)==0:
@@ -43,7 +46,57 @@ def isCategory(name):
     else:
         return False
 
-def getLoadedPageContent(url,delay=10,clicks=[]):
+
+def getLoadedPageContent(url: str,type:str,clicks:list=[],delay: int=None):
+    # Return the page source of the given {url} 
+    # after waiting {delay} seconds for the page to load load
+    # type = channel | clip | category | None
+    
+    try:
+        options = webdriver.ChromeOptions()
+    except Exception as exc:
+        logging.error(exc)
+        raise Exception("An error occurred while loading the selenium webdriver")
+    options.add_argument('headless')
+    options.add_experimental_option("excludeSwitches", ["enable-logging"])
+    driver = webdriver.Chrome(options=options)
+    driver.get(url)
+
+    if type=='channel' or type=='category':
+        WebDriverWait(driver,60).until(lambda test : len(driver.find_elements_by_tag_name('article'))!=0)
+    if type=='clip':
+        WebDriverWait(driver,60).until(lambda test : len(driver.find_elements_by_tag_name('video'))!=0)
+        ready = False
+        while not ready:
+            html_data = bs(driver.page_source,'html.parser')
+            ready = True
+            try:
+                html_data.find("video")["src"]
+            except:
+                ready = False
+    if type==None:
+        time.sleep(delay)
+        
+    if len(clicks)!=0:
+        for el in clicks:
+            div = driver.find_element_by_xpath(el)
+            div.click()
+    else:
+        response = driver.page_source
+        driver.quit()
+        return response
+
+    if type=='category':
+        WebDriverWait(driver,60).until(lambda test : len(driver.find_elements_by_tag_name('article'))!=0)
+    if type==None:
+        time.sleep(delay)
+            
+    response = driver.page_source
+    driver.quit()
+    return response
+'''
+
+def getLoadedPageContent(url,clicks=[],delay:int=None, type: str=None):
     # Return the page source of the given {url} 
     # after waiting {delay} seconds for the page to load load
     try:
@@ -55,15 +108,25 @@ def getLoadedPageContent(url,delay=10,clicks=[]):
     options.add_experimental_option("excludeSwitches", ["enable-logging"])
     driver = webdriver.Chrome(options=options)
     driver.get(url)
-    time.sleep(delay)
+    if delay != None:
+        time.sleep(delay)
+    else:
+        WebDriverWait(driver,20).until(lambda test : len(driver.find_elements_by_tag_name('article'))!=0)
     if len(clicks)!=0:
         for el in clicks:
             div = driver.find_element_by_xpath(el)
             div.click()
-    time.sleep(delay)
+    if delay != None:
+        time.sleep(delay)
+    else:
+        if len(clicks)!=0 and not type=='category':
+            WebDriverWait(driver,20).until(lambda test : len(driver.find_elements_by_tag_name('video'))!=0)
+        if type =='category':
+            WebDriverWait(driver,20).until(lambda test : len(driver.find_elements_by_tag_name('article'))!=0)
     response = driver.page_source
     driver.quit()
     return response
+''' 
 
 def fetchClipsCategory(cat_name,range="7d",max=None,languages=[]):
     # Return an array of Clip object fetched on the channel 
@@ -78,7 +141,7 @@ def fetchClipsCategory(cat_name,range="7d",max=None,languages=[]):
     language_codes = ["//button[@data-test-selector='language-select-menu__toggle-button']"]
     for lg in languages:
         language_codes.append(f'//div[@data-language-code="{lg}"]')
-    data = bs(getLoadedPageContent(f"https://www.twitch.tv/directory/game/{cat_name}/clips?range={range}",clicks=language_codes),'html.parser')
+    data = bs(getLoadedPageContent(f"https://www.twitch.tv/directory/game/{cat_name}/clips?range={range}",type='category',clicks=language_codes),'html.parser')
     clips = data.findAll("article")
     response = []
     for element in clips:
@@ -101,7 +164,7 @@ def fetchClipsChannel(channel_name,range="7d",max=None):
     
     if range != "24h" and range != "7d" and range != "30d" and range != "all":
         raise Exception("Range not valid, allowed ranges: 24h, 7d, 30d, all")
-    data = bs(getLoadedPageContent(f"https://www.twitch.tv/{channel_name}/clips?filter=clips&range={range}"),'html.parser')
+    data = bs(getLoadedPageContent(f"https://www.twitch.tv/{channel_name}/clips?filter=clips&range={range}",type='channel'),'html.parser')
     clips = data.findAll("article")
     response = []
     for element in clips:
@@ -124,9 +187,10 @@ def removeAllClips():
 def downloadClip(clip,fileName):
     # Download clip and save it in the ./Clips folder with the given fileName with mp4 extension
     assert type(clip) == Clip
-    data = bs(getLoadedPageContent(clip.url),'html.parser')
+
+    data = bs(getLoadedPageContent(clip.url,type='clip'),'html.parser')
     videoLink = data.find("video")["src"]
     if not os.path.isdir("./Clips"):
         os.mkdir("Clips")
-    urllib.request.urlretrieve(videoLink, f'./Clips/{fileName}.mp4') 
-    time.sleep(5)
+
+    urllib.request.urlretrieve(videoLink, f'./Clips/{fileName}.mp4')
