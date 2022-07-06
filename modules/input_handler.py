@@ -159,7 +159,10 @@ def getTimePeriod():
         print("2)7 days")
         print("3)30 days")
         print("4)All time")
-        option = int(input("\n>>"))
+        try:
+            option = int(input("\n>>"))
+        except:
+            option = -1
     if option == 1:
         ranged = "24h"
     if option == 2:
