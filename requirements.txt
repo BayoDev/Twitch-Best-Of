@@ -1,7 +1,7 @@
-beautifulsoup4==4.9.3
-Pillow==9.0.1
-moviepy==1.0.3
-configparser==5.0.1
-requests==2.23.0
-selenium==3.141.0
-urllib3==1.25.10
+beautifulsoup4
+Pillow
+moviepy
+configparser
+requests
+selenium
+urllib3
