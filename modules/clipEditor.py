@@ -98,14 +98,14 @@ def create_text_slide(slide: Slide) -> None:
         else:
             jumpsize = jumpsize // 2
             fontsize -= jumpsize
-        font = ImageFont.truetype(f'./res/{slide.font_name}.ttf', fontsize)
+        font = ImageFont.truetype(f'./res/{slide.fontName}.ttf', fontsize)
         if jumpsize <= 1:
             break
 
     textWidth, textHeight = font.getsize(slide.text)
 
     drawImage.text(((slide.size[0]-textWidth)/2, (slide.size[1]-textHeight)/2),text=slide.text,fill=slide.txtColor,font=font)
-    image.save(f"./Clips/{slide.file_name}.png")
+    image.save(f"./Clips/{slide.fileName}.png")
     
 def create_intro(size: tuple,video_fps: int,numberOfClips: int,channel: str,time: str) -> ImageSequenceClip:
     # Return an intro slide as an ImageSequenceClip  object
