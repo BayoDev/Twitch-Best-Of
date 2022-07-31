@@ -63,19 +63,36 @@ def getMaxFps(file_path):
 def createTextSlide(slide):
     # Create and save a text slide based on the Slide object that is passed
     assert type(slide) == Slide
-    fontSize=int((slide.fontSize/1920)*slide.size[0])
-    fnt = ImageFont.truetype(f'./res/{slide.font_name}.ttf', slide.fontSize)
+
     if slide.customBg:
-        tr = Image.open(f"./res/{slide.bgName}")
-        if tr.size != slide.size:
-            tr = tr.resize(slide.size)
+        image = Image.open(f"./res/{slide.bgName}")
+        if image.size != slide.size:
+            image = image.resize(slide.size)
     else:
-        tr = Image.new("RGB",slide.size,color=slide.bgColor)
-    d = ImageDraw.Draw(tr)
-    w,h = d.textsize(slide.text,font=fnt)
-    h+= int(h*0.21)
-    d.text(((slide.size[0]-w)/2, (slide.size[1]-h)/2),text=slide.text,fill=slide.txtColor,font=fnt)
-    tr.save(f"./Clips/{slide.file_name}.png")
+        image = Image.new("RGB",slide.size,color=slide.bgColor)
+    drawImage = ImageDraw.Draw(image)
+
+    # Taken from https://stackoverflow.com/a/61891053
+
+    img_fraction = 0.7
+    breakpoint = img_fraction * slide.size[0]
+    jumpsize = 75
+    fontsize = 1
+    font = ImageFont.truetype(f'./res/{slide.font_name}.ttf', fontsize)
+    while True:
+        if font.getsize(slide.text)[0] < breakpoint:
+            fontsize += jumpsize
+        else:
+            jumpsize = jumpsize // 2
+            fontsize -= jumpsize
+        font = ImageFont.truetype(f'./res/{slide.font_name}.ttf', fontsize)
+        if jumpsize <= 1:
+            break
+
+    textWidth, textHeight = font.getsize(slide.text)
+
+    drawImage.text(((slide.size[0]-textWidth)/2, (slide.size[1]-textHeight)/2),text=slide.text,fill=slide.txtColor,font=font)
+    image.save(f"./Clips/{slide.file_name}.png")
     
 def createIntro(size,video_fps,numberOfClips,channel,time):
     # Return an intro slide as an ImageSequenceClip  object
@@ -95,7 +112,7 @@ def createIntro(size,video_fps,numberOfClips,channel,time):
                         customBg=getIntroCustomBg(),
                         bgName=getIntroBgName()))
     imgList = []
-    for s in range(video_fps*getIntroTime()):
+    for i in range(video_fps*getIntroTime()):
         imgList.append('./Clips/intro.png')
     return ImageSequenceClip(imgList,fps=video_fps)
 
