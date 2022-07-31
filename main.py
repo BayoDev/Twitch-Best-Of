@@ -9,33 +9,41 @@ import os
 import logging
 from tqdm import tqdm
 
-def removeOldFiles():
+def remove_old_files() -> None:
     # Delete temporary file that may still exist if the program was
     # interrupted during the editing of the clips
     try:
-        if os.path.isfile(getOutputTitle()+"TEMP_MPY_wvf_snd.mp3"):
-            os.remove(getOutputTitle()+"TEMP_MPY_wvf_snd.mp3")
+        if os.path.isfile(get_output_title()+"TEMP_MPY_wvf_snd.mp3"):
+            os.remove(get_output_title()+"TEMP_MPY_wvf_snd.mp3")
         removeAllClips()
     except:
         return
 
 
-def main(automated=False,name=None,nclips=None,range_in=None,iPath=None,type=None,langs=None):
+def main(
+    automated: bool=False,
+    name: str=None,
+    nclips: int=None,
+    range_in: str=None,
+    iPath: str=None,
+    type: str=None,
+    langs: list=None
+    ) -> None:
     if automated:
-        right,iPath = checkInputs(name,nclips,range_in,iPath,type,langs)
+        right,iPath = check_inputs(name,nclips,range_in,iPath,type,langs)
         if not right:
             return False
 
-    initConf(verbose=False)
+    config_init(verbose=False)
 
     initLog()
 
     logging.basicConfig(level=10,filename="log.txt",filemode='w')
 
-    removeOldFiles()
+    remove_old_files()
 
     if not automated:
-        name,nclips,range_in,iPath,type,langs = getInputs()
+        name,nclips,range_in,iPath,type,langs = get_inputs()
 
     cls()
 
@@ -73,7 +81,7 @@ def main(automated=False,name=None,nclips=None,range_in=None,iPath=None,type=Non
     log("All clips downloaded")
     info("Creating the video")
 
-    createVideo(save_path=iPath,channel=name,time=range_in)
+    create_video(save_path=iPath,channel=name,time=range_in)
 
     log("Video created")
     info("Interrupting the execution")

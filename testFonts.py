@@ -3,11 +3,10 @@ from modules.configHandler import *
 from modules.clipEditor import Slide
 import sys
 
-def createTextSlide(slide):
+def create_text_slide(slide):
     # Create and save a text slide based on the Slide object that is passed
     assert type(slide) == Slide
-    # fontSize = int((slide.fontSize/1920)*slide.size[0])
-    # font = ImageFont.truetype(f'./res/{slide.font_name}.ttf', slide.fontSize)
+
     if slide.customBg:
         image = Image.open(f"./res/{slide.bgName}")
         if image.size != slide.size:
@@ -15,14 +14,12 @@ def createTextSlide(slide):
     else:
         image = Image.new("RGB",slide.size,color=slide.bgColor)
     drawImage = ImageDraw.Draw(image)
-    # w,h = drawImage.textsize(slide.text,font=font)
-    # h+= int(h*0.21)
 
     # Taken from https://stackoverflow.com/a/61891053
 
-    img_fraction = 0.7
+    img_fraction = slide.textRatio
     breakpoint = img_fraction * slide.size[0]
-    jumpsize = 75
+    jumpsize = 50
     fontsize = 1
     font = ImageFont.truetype(f'./res/{slide.font_name}.ttf', fontsize)
     while True:
@@ -40,7 +37,7 @@ def createTextSlide(slide):
     drawImage.text(((slide.size[0]-textWidth)/2, (slide.size[1]-textHeight)/2),text=slide.text,fill=slide.txtColor,font=font)
     image.show()
     
-def createIntro(size,numberOfClips=10,channel="channel",time="all"):
+def create_intro(size,numberOfClips=10,channel="channel",time="all"):
     if time == "24h":
         time_period="the day"
     if time == "7d":
@@ -49,37 +46,37 @@ def createIntro(size,numberOfClips=10,channel="channel",time="all"):
         time_period="the month"
     if time == "all":
         time_period="all time"
-    createTextSlide(Slide(text=f"Top {numberOfClips} best {channel}'s clips of {time_period}",
+    create_text_slide(Slide(text=f"Top {numberOfClips} best {channel}'s clips of {time_period}",
                         size=size,
                         file_name=f"intro",
-                        font_name=getIntroFontName(),
-                        fontSize=getIntroFontSize(),
-                        customBg=getIntroCustomBg(),
-                        bgName=getIntroBgName()))
+                        font_name=get_intro_font_name(),
+                        textRatio=get_intro_text_ratio(),
+                        customBg=get_intro_custom_bg(),
+                        bgName=get_intro_bg_name()))
     return
 
-def createTransition(size,number):
-    createTextSlide(Slide(text=f"Clip #{number}",
+def create_transition(size,number):
+    create_text_slide(Slide(text=f"Clip #{number}",
                         size=size,
                         file_name=f"transition{number}",
-                        font_name=getRankingFontName(),
-                        fontSize=getRankingFontSize(),
-                        customBg=getRankingCustomBg(),
-                        bgName=getRankingBgName()))
+                        font_name=get_ranking_font_name(),
+                        textRatio=get_ranking_text_ratio(),
+                        customBg=get_ranking_custom_bg(),
+                        bgName=get_ranking_bg_name()))
     return
 
-def createOutro(size):
-    createTextSlide(Slide(text=getOutroText(),
+def create_outro(size):
+    create_text_slide(Slide(text=get_outro_text(),
                         size=size,
-                        file_name="outro",
-                        font_name=getOutroFontName(),
-                        fontSize=getOutroFontSize(),
-                        customBg=getOutroCustomBg(),
-                        bgName=getOutroBgName()))
+                        fileName="outro",
+                        fontName=get_outro_font_name(),
+                        textRatio=get_outro_text_ratio(),
+                        customBg=get_outro_custom_bg(),
+                        bgName=get_outro_bg_name()))
     return
 
 size = (1280,720)    
 
-createIntro(size)
-createTransition(size,0)
-createOutro(size)
+create_intro(size)
+create_transition(size,0)
+create_outro(size)
