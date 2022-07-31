@@ -5,79 +5,109 @@ from modules.configHandler import *
 import random
 
 class Slide:
-    def __init__(self,text="Test",
-                size=(1920,1080),
-                bgColor=(0,0,0),
-                txtColor=(255,255,255),
-                file_name=f"slide{random.randrange(1000)}",
-                font_name="font",
-                fontSize=100,
+
+    text: str           # Text Displayed in the Slide
+    size: tuple         # Size of the Slide as as a tuple (width,height)
+    bgColor: tuple      # Color of the background  as a tuple (R,G,B)
+    txtColor: tuple     # Color of the text as a tuple (R,G,B) 
+    fileName: str       # File name of the Slide file , without extension
+    fontName: str       # Name of the Font file used for the text without the extension,
+                        #   must be in the /res folder and be a ttf file
+    textRatio: float    # Font size of the text in the Slide
+    customBg = bool     # {True|False} Use Custom Background
+    bgName: str         # Name of the image file used as background with the extension, must be in /res folder
+
+    def __init__(self,
+                text: str="Test",
+                size: tuple=(1920,1080),
+                bgColor: tuple=(0,0,0),
+                txtColor: tuple=(255,255,255),
+                fileName :str=f"slide{random.randrange(1000)}",
+                fontName :str="font",
+                textRatio :float=0.5,
                 customBg=False,
-                bgName=None):
-        self.text=text                  # Text Displayed in the Slide
-        self.size=size                  # Size of the Slide as as a tuple (width,height)  
-        self.bgColor=bgColor            # Color of the background  as a tuple (R,G,B)
-        self.txtColor=txtColor          # Color of the text as a tuple (R,G,B) 
-        self.file_name=file_name        # File name of the Slide file , without extension
-        self.font_name = font_name      # Name of the Font file used for the text without the extension,
-                                        #   must be in the /res folder and be a ttf file
-        self.fontSize = fontSize        # Font size of the text in the Slide
-        self.customBg=customBg          # {True|False} Use Custom Background
-        self.bgName=bgName              # Name of the image file used as background with the extension, must be in /res folder
+                bgName=None
+    ):
+        self.text=text                  
+        self.size=size                    
+        self.bgColor=bgColor            
+        self.txtColor=txtColor          
+        self.fileName=fileName        
+        self.fontName = fontName      
+        self.textRatio = textRatio      
+        self.customBg=customBg          
+        self.bgName=bgName              
         
 
 
-def getMaxDimension(file_path):
+def get_max_dimensions(filePath: str) -> tuple:
     # Return the max dimension among the video file 
-    # in the file_path folder as a tuplet (width,height)
+    # in the filePath folder as a tuplet (width,height)
     import cv2
     heights = []
     widths = []
-    for name in os.listdir(file_path):
+    for name in os.listdir(filePath):
         try:
-            vid = cv2.VideoCapture(file_path+"/"+name)
+            vid = cv2.VideoCapture(filePath+"/"+name)
             heights.append(vid.get(cv2.CAP_PROP_FRAME_HEIGHT))
             widths.append(vid.get(cv2.CAP_PROP_FRAME_WIDTH))
         except:
             continue
     return (int(max(widths)),int(max(heights)))
 
-def getDimension(file_name):
-    # Return Width of a video file named file_name contained in the ./Clips folder
+def get_video_dimension(fileName: str) -> int:
+    # Return Width of a video file named fileName contained in the ./Clips folder
     import cv2
-    vid = cv2.VideoCapture("./Clips/"+file_name)
+    vid = cv2.VideoCapture("./Clips/"+fileName)
     return vid.get(cv2.CAP_PROP_FRAME_WIDTH)
 
-def getMaxFps(file_path):
-    # Return the highest fps among the video file contained in the file_path folder
+def get_max_fps(filePath: str) -> int:
+    # Return the highest fps among the video file contained in the filePath folder
     import cv2
     fps = []
-    for name in os.listdir(file_path):
+    for name in os.listdir(filePath):
         try:
-            vid = cv2.VideoCapture(file_path+"/"+name)
+            vid = cv2.VideoCapture(filePath+"/"+name)
             fps.append(vid.get(cv2.CAP_PROP_FPS))
         except:
             continue
     return int(max(fps))
     
-def createTextSlide(slide):
+def create_text_slide(slide: Slide) -> None:
     # Create and save a text slide based on the Slide object that is passed
     assert type(slide) == Slide
-    fontSize=int((slide.fontSize/1920)*slide.size[0])
-    fnt = ImageFont.truetype(f'./res/{slide.font_name}.ttf', slide.fontSize)
+
     if slide.customBg:
-        tr = Image.open(f"./res/{slide.bgName}")
-        if tr.size != slide.size:
-            tr = tr.resize(slide.size)
+        image = Image.open(f"./res/{slide.bgName}")
+        if image.size != slide.size:
+            image = image.resize(slide.size)
     else:
-        tr = Image.new("RGB",slide.size,color=slide.bgColor)
-    d = ImageDraw.Draw(tr)
-    w,h = d.textsize(slide.text,font=fnt)
-    h+= int(h*0.21)
-    d.text(((slide.size[0]-w)/2, (slide.size[1]-h)/2),text=slide.text,fill=slide.txtColor,font=fnt)
-    tr.save(f"./Clips/{slide.file_name}.png")
+        image = Image.new("RGB",slide.size,color=slide.bgColor)
+    drawImage = ImageDraw.Draw(image)
+
+    # Taken from https://stackoverflow.com/a/61891053
+
+    img_fraction = slide.textRatio
+    breakpoint = img_fraction * slide.size[0]
+    jumpsize = 50
+    fontsize = 1
+    font = ImageFont.truetype(f'./res/{slide.fontName}.ttf', fontsize)
+    while True:
+        if font.getsize(slide.text)[0] < breakpoint:
+            fontsize += jumpsize
+        else:
+            jumpsize = jumpsize // 2
+            fontsize -= jumpsize
+        font = ImageFont.truetype(f'./res/{slide.fontName}.ttf', fontsize)
+        if jumpsize <= 1:
+            break
+
+    textWidth, textHeight = font.getsize(slide.text)
+
+    drawImage.text(((slide.size[0]-textWidth)/2, (slide.size[1]-textHeight)/2),text=slide.text,fill=slide.txtColor,font=font)
+    image.save(f"./Clips/{slide.fileName}.png")
     
-def createIntro(size,video_fps,numberOfClips,channel,time):
+def create_intro(size: tuple,video_fps: int,numberOfClips: int,channel: str,time: str) -> ImageSequenceClip:
     # Return an intro slide as an ImageSequenceClip  object
     if time == "24h":
         time_period="the day"
@@ -87,72 +117,72 @@ def createIntro(size,video_fps,numberOfClips,channel,time):
         time_period="the month"
     if time == "all":
         time_period="all time"
-    createTextSlide(Slide(text=f"Top {numberOfClips} best {channel}'s clips of {time_period}",
+    create_text_slide(Slide(text=f"Top {numberOfClips} best {channel}'s clips of {time_period}",
                         size=size,
-                        file_name=f"intro",
-                        font_name=getIntroFontName(),
-                        fontSize=getIntroFontSize(),
-                        customBg=getIntroCustomBg(),
-                        bgName=getIntroBgName()))
+                        fileName=f"intro",
+                        fontName=get_intro_font_name(),
+                        textRatio=get_intro_text_ratio(),
+                        customBg=get_intro_custom_bg(),
+                        bgName=get_intro_bg_name()))
     imgList = []
-    for s in range(video_fps*getIntroTime()):
+    for i in range(video_fps*get_intro_time()):
         imgList.append('./Clips/intro.png')
     return ImageSequenceClip(imgList,fps=video_fps)
 
-def createTransition(size,video_fps,number):
+def create_transition(size: tuple,video_fps: int,number: int) -> ImageSequenceClip:
     # Return an in-clip-transition as an ImageSequenceClip object
-    createTextSlide(Slide(text=f"Clip #{number}",
+    create_text_slide(Slide(text=f"Clip #{number}",
                         size=size,
-                        file_name=f"transition{number}",
-                        font_name=getRankingFontName(),
-                        fontSize=getRankingFontSize(),
-                        customBg=getRankingCustomBg(),
-                        bgName=getRankingBgName()))
+                        fileName=f"transition{number}",
+                        fontName=get_ranking_font_name(),
+                        textRatio=get_ranking_text_ratio(),
+                        customBg=get_ranking_custom_bg(),
+                        bgName=get_ranking_bg_name()))
     imgList = []
-    for s in range(video_fps*getRankingTime()):
+    for s in range(video_fps*get_ranking_time()):
         imgList.append(f'./Clips/transition{number}.png')
     return ImageSequenceClip(imgList,fps=video_fps)
 
-def createOutro(size,video_fps):
+def create_outro(size: tuple,video_fps: int) -> ImageSequenceClip:
     # Return an outro as an ImageSequenceClip object
-    createTextSlide(Slide(text=getOutroText(),
+    create_text_slide(Slide(text=get_outro_text(),
                         size=size,
-                        file_name="outro",
-                        font_name=getOutroFontName(),
-                        fontSize=getOutroFontSize(),
-                        customBg=getOutroCustomBg(),
-                        bgName=getOutroBgName()))
+                        fileName="outro",
+                        fontName=get_outro_font_name(),
+                        textRatio=get_outro_text_ratio(),
+                        customBg=get_outro_custom_bg(),
+                        bgName=get_outro_bg_name()))
     imgList = []
-    for s in range(video_fps*getOutroTime()):
+    for s in range(video_fps*get_outro_time()):
         imgList.append('./Clips/outro.png')
     return ImageSequenceClip(imgList,fps=video_fps)
     
 
-def createVideo(save_path=".",channel=None,time="7d"):
+def create_video(save_path: str=".",channel: str=None,time: str="7d") -> None:
 
     # Create and save the final video 
 
-    file_name = getOutputTitle()
+    file_name = get_output_title()
     numberOfClips = sum([len(files) for r, d, files in os.walk("./Clips")])
-    video_size = getMaxDimension("./Clips")
-    video_fps = getMaxFps("./Clips")
+    video_size = get_max_dimensions("./Clips")
+    video_fps = get_max_fps("./Clips")
     clipList =[]
     #---INTRO---
-    if getIntro():
-        clipList.append(createIntro(video_size,video_fps,numberOfClips,channel,time))
+    if get_intro_slide():
+        clipList.append(create_intro(video_size,video_fps,numberOfClips,channel,time))
 
     #---Clips and transitions---
     for i in range(numberOfClips,0,-1):
-        if getRankingSlide():
-            clipList.append(createTransition(video_size,video_fps,i))
+        if get_ranking_slide():
+            clipList.append(create_transition(video_size,video_fps,i))
         vid = VideoFileClip(f"./Clips/clip{i}.mp4")
-        if getDimension(f"clip{i}.mp4") != video_size[0]:
+        if get_video_dimension(f"clip{i}.mp4") != video_size[0]:
                 vid = vid.resize(width=video_size[0])
         clipList.append(vid)
     
     #---Outro---
-    if getOutro():
-        clipList.append(createOutro(video_size,video_fps))
+    if get_outro_slide():
+        clipList.append(create_outro(video_size,video_fps))
     #   Concatenate clips
     final_clip = concatenate_videoclips(clipList)
     final_clip.write_videofile(f"{save_path}/{file_name}.mp4",fps=video_fps)

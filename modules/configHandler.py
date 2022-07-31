@@ -5,7 +5,7 @@ from .cmd_logs import *
 
 PATH = "./res/config.ini"
 
-def initConf(bypass=False,verbose=False):
+def config_init(bypass: bool=False,verbose: bool=False) -> None:
     # Initialize Config file
     # If bypass=True set config file to default values
     global PATH
@@ -23,7 +23,7 @@ def initConf(bypass=False,verbose=False):
         "activate":"False",
         "time":"5",
         "font":"font",
-        "fontSize":"90",
+        "textToImageRatio":"0.7",
         "customBg":"False",
         "customBgFileName":"test.jpg"
     }
@@ -31,7 +31,7 @@ def initConf(bypass=False,verbose=False):
         "activate":"True",
         "time":"4",
         "font":"font",
-        "fontSize":"120",
+        "textToImageRatio":"0.4",
         "customBg":"False",
         "customBgFileName":"test.jpg"
     }
@@ -40,7 +40,7 @@ def initConf(bypass=False,verbose=False):
         "text":"Thanks for watching, subscribe!",
         "time":"6",
         "font":"font",
-        "fontSize":"120",
+        "textToImageRatio":"0.7",
         "customBg":"False",
         "customBgFileName":"test.jpg"
     }
@@ -50,7 +50,7 @@ def initConf(bypass=False,verbose=False):
 
 #---OUTPUT---
 
-def getOutputTitle():
+def get_output_title():
     global PATH
     config_object = ConfigParser()
     config_object.read(PATH)
@@ -60,7 +60,7 @@ def getOutputTitle():
         raise Exception("Field does not exists!")
     return response
 
-def getCmdOnly():
+def get_cmd_only():
     global PATH
     config_object = ConfigParser()
     config_object.read(PATH)
@@ -76,7 +76,7 @@ def getCmdOnly():
         return response
     raise Exception("Error in config file")
 
-def getOutPath():
+def get_out_path():
     global PATH
     config_object = ConfigParser()
     config_object.read(PATH)
@@ -89,7 +89,7 @@ def getOutPath():
 
 #---INTRO---
 
-def getIntro():
+def get_intro_slide():
     global PATH
     config_object = ConfigParser()
     config_object.read(PATH)
@@ -105,7 +105,7 @@ def getIntro():
         return response
     raise Exception("Error in config file")
 
-def getIntroTime():
+def get_intro_time():
     global PATH
     config_object = ConfigParser()
     config_object.read(PATH)
@@ -115,7 +115,7 @@ def getIntroTime():
         raise Exception("Field does not exists!")
     return int(response)
 
-def getIntroFontName():
+def get_intro_font_name():
     global PATH
     config_object = ConfigParser()
     config_object.read(PATH)
@@ -125,17 +125,17 @@ def getIntroFontName():
         raise Exception("Field does not exists!")
     return response
 
-def getIntroFontSize():
+def get_intro_text_ratio():
     global PATH
     config_object = ConfigParser()
     config_object.read(PATH)
     try:
-        response = config_object["INTRO"]["fontSize"]
+        response = config_object["INTRO"]["textToImageRatio"]
     except:
         raise Exception("Field does not exists!")
-    return int(response)
+    return float(response)
 
-def getIntroCustomBg():
+def get_intro_custom_bg():
     global PATH
     config_object = ConfigParser()
     config_object.read(PATH)
@@ -151,7 +151,7 @@ def getIntroCustomBg():
         return response
     raise Exception("Error in config file")
 
-def getIntroBgName():
+def get_intro_bg_name():
     global PATH
     config_object = ConfigParser()
     config_object.read(PATH)
@@ -163,7 +163,7 @@ def getIntroBgName():
 
 #---RANKING---
 
-def getRankingSlide():
+def get_ranking_slide():
     global PATH
     config_object = ConfigParser()
     config_object.read(PATH)
@@ -179,7 +179,7 @@ def getRankingSlide():
         return response
     raise Exception("Error in config file")
 
-def getRankingTime():
+def get_ranking_time():
     global PATH
     config_object = ConfigParser()
     config_object.read(PATH)
@@ -189,7 +189,7 @@ def getRankingTime():
         raise Exception("Field does not exists!")
     return int(response)
 
-def getRankingFontName():
+def get_ranking_font_name():
     global PATH
     config_object = ConfigParser()
     config_object.read(PATH)
@@ -199,17 +199,17 @@ def getRankingFontName():
         raise Exception("Field does not exists!")
     return response
 
-def getRankingFontSize():
+def get_ranking_text_ratio():
     global PATH
     config_object = ConfigParser()
     config_object.read(PATH)
     try:
-        response = config_object["RANKING"]["fontSize"]
+        response = config_object["RANKING"]["textToImageRatio"]
     except:
         raise Exception("Field does not exists!")
-    return int(response)
+    return float(response)
 
-def getRankingCustomBg():
+def get_ranking_custom_bg():
     global PATH
     config_object = ConfigParser()
     config_object.read(PATH)
@@ -225,7 +225,7 @@ def getRankingCustomBg():
         return response
     raise Exception("Error in config file")
 
-def getRankingBgName():
+def get_ranking_bg_name():
     global PATH
     config_object = ConfigParser()
     config_object.read(PATH)
@@ -237,7 +237,7 @@ def getRankingBgName():
 
 #---OUTRO---
 
-def getOutro():
+def get_outro_slide():
     global PATH
     config_object = ConfigParser()
     config_object.read(PATH)
@@ -253,7 +253,7 @@ def getOutro():
         return response
     raise Exception("Error in config file")
 
-def getOutroText():
+def get_outro_text():
     global PATH
     config_object = ConfigParser()
     config_object.read(PATH)
@@ -263,7 +263,7 @@ def getOutroText():
         raise Exception("Field does not exists!")
     return response
 
-def getOutroTime():
+def get_outro_time():
     global PATH
     config_object = ConfigParser()
     config_object.read(PATH)
@@ -273,7 +273,7 @@ def getOutroTime():
         raise Exception("Field does not exists!")
     return int(response)
 
-def getOutroFontName():
+def get_outro_font_name():
     global PATH
     config_object = ConfigParser()
     config_object.read(PATH)
@@ -283,17 +283,17 @@ def getOutroFontName():
         raise Exception("Field does not exists!")
     return response
   
-def getOutroFontSize():
+def get_outro_text_ratio():
     global PATH
     config_object = ConfigParser()
     config_object.read(PATH)
     try:
-        response = config_object["OUTRO"]["fontSize"]
+        response = config_object["OUTRO"]["textToImageRatio"]
     except:
         raise Exception("Field does not exists!")
-    return int(response)
+    return float(response)
 
-def getOutroCustomBg():
+def get_outro_custom_bg():
     global PATH
     config_object = ConfigParser()
     config_object.read(PATH)
@@ -309,7 +309,7 @@ def getOutroCustomBg():
         return response
     raise Exception("Error in config file")
 
-def getOutroBgName():
+def get_outro_bg_name():
     global PATH
     config_object = ConfigParser()
     config_object.read(PATH)

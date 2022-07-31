@@ -46,7 +46,7 @@ available_langs = [
     "other"
 ]
 
-def getInputs():
+def get_inputs():
     # Start the GUI and get the following inputs:
     #
     #   channel: the name of the channel
@@ -107,7 +107,7 @@ def getInputs():
                 ch = input("\nName of the channel:")
                 print("\nChecking if the channel is available...")
                 if not ch.__contains__("@"):
-                    resp = isChannel(ch)
+                    resp = is_channel(ch)
             name = ch
 
         if type == 2:
@@ -121,19 +121,19 @@ def getInputs():
                 ca = input("\nName of the category:")
                 print("\nChecking if the category is available...")
                 if not ca.__contains__("@"):
-                    resp = isCategory(ca)
+                    resp = is_category(ca)
             name = ca
 
             cls()
 
             selection = input("\n\tDo you want to select a language?(y/n) ")
             if(selection=='y'):
-                langs = getLanguages()
+                langs = get_languages()
             
 
         #---Time range---
 
-        ranged = getTimePeriod()
+        ranged = get_time_period()
 
         #---nclips---
 
@@ -145,12 +145,12 @@ def getInputs():
 
         #---iPath---
 
-        iPath = getDirectory()
+        iPath = get_directory()
 
     return name,nclips,ranged,iPath,type,langs
 
 
-def getTimePeriod():
+def get_time_period():
     option = 0
     while option <= 0 or option > 4:
         cls()
@@ -173,7 +173,7 @@ def getTimePeriod():
         ranged = "all"
     return ranged
 
-def getDirectory():
+def get_directory():
     iPath = "./sas"
     i=0
     while (not os.path.isdir(iPath) or i == 0) and not iPath==None:
@@ -182,15 +182,15 @@ def getDirectory():
             print("\nInvalid Directory!")
         i=1
         print("\nSelect a path to save the montage:")
-        if not getCmdOnly():
+        if not get_cmd_only():
             root = Tk()
             root.withdraw()
             iPath=askdirectory()
         else:
-            iPath=getOutPath()
+            iPath=get_out_path()
     return iPath
 
-def getLanguages():
+def get_languages():
     global available_langs
     data = ''
     selected = []
@@ -208,7 +208,7 @@ def getLanguages():
     return [available_langs[i] for i in selected]
 
 
-def checkInputs(name,nclips,range,iPath,type,langs):
+def check_inputs(name,nclips,range,iPath,type,langs):
     global available_langs
 
     # Check type
@@ -217,10 +217,10 @@ def checkInputs(name,nclips,range,iPath,type,langs):
 
     # Check name
     if type==1:
-        if not isChannel(name):
+        if not is_channel(name):
             return False,None
     if type==2:
-        if not isCategory(name):
+        if not is_category(name):
             return False,None
     
     # Check nclips
@@ -232,11 +232,11 @@ def checkInputs(name,nclips,range,iPath,type,langs):
         return False,None
 
     # Check iPath
-    if not getCmdOnly():
+    if not get_cmd_only():
         if not os.path.isdir(iPath) and not iPath==None:
             return False,None
     else:
-        iPath = getOutPath()
+        iPath = get_out_path()
 
     # Check langs
     for lg in langs:
@@ -246,7 +246,7 @@ def checkInputs(name,nclips,range,iPath,type,langs):
     return True,iPath
 
     
-def selectClips(clips: list):
+def select_clips(clips: list):
     print("\n\tFound clips:\n")
     for idx,clip in enumerate(clips):
         print(f"Clip {idx+1}:")
