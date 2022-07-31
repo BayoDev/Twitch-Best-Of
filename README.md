@@ -72,7 +72,7 @@ INTRO | DESCRIPTION
 activate | True to enable
 time | Duration in seconds 
 font | Name of the font file without the extension(must be .ftt),must be positioned in /res
-fontSize | The font-size of the text
+textRatio | The ratio of the width of the text compared to the width of the frame
 customBg | True to use a custom background image in the ranking slides
 customBgFileName | Name of the file of the custom background image(must be in /res)
 
@@ -81,7 +81,7 @@ RANKING | DESCRIPTION
 activate | True to enable
 time | Duration in seconds 
 font | Name of the font file without the extension(must be .ftt),must be positioned in /res
-fontSize | The font-size of the text
+textRatio | The ratio of the width of the text compared to the width of the frame
 customBg | True to use a custom background image in the ranking slides
 customBgFileName | Name of the file of the custom background image(must be in /res)
 
@@ -91,7 +91,7 @@ activate | True to enable
 text | Text displayed
 time | Duration in seconds 
 font | Name of the font file without the extension(must be .ftt),must be positioned in /res
-fontSize | The font-size of the text
+textRatio | The ratio of the width of the text compared to the width of the frame
 customBg | True to use a custom background image in the ranking slides
 customBgFileName | Name of the file of the custom background image(must be in /res)
 
