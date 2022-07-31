@@ -91,7 +91,7 @@ def create_text_slide(slide: Slide) -> None:
     breakpoint = img_fraction * slide.size[0]
     jumpsize = 50
     fontsize = 1
-    font = ImageFont.truetype(f'./res/{slide.font_name}.ttf', fontsize)
+    font = ImageFont.truetype(f'./res/{slide.fontName}.ttf', fontsize)
     while True:
         if font.getsize(slide.text)[0] < breakpoint:
             fontsize += jumpsize
