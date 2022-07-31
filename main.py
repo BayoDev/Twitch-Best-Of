@@ -15,7 +15,7 @@ def remove_old_files() -> None:
     try:
         if os.path.isfile(get_output_title()+"TEMP_MPY_wvf_snd.mp3"):
             os.remove(get_output_title()+"TEMP_MPY_wvf_snd.mp3")
-        removeAllClips()
+        remove_all_clips()
     except:
         return
 
@@ -50,9 +50,9 @@ def main(
     info("Fetching data")
 
     if type == 1:
-        data = fetchClipsChannel(name,max=nclips,range=range_in)
+        data = fetch_clips_channel(name,max=nclips,range=range_in)
     elif type == 2:
-        data = fetchClipsCategory(name,max=nclips,range=range_in,languages=langs)
+        data = fetch_clips_category(name,max=nclips,range=range_in,languages=langs)
 
     i = 1
     log("Data fetched")
@@ -61,7 +61,7 @@ def main(
     try:
         threads = []
         for clip in data:
-            threads.append(threading.Thread(target=downloadClip,args=(clip,f"clip{i}")))
+            threads.append(threading.Thread(target=download_clip,args=(clip,f"clip{i}")))
             i+=1
         for tr in threads:
             tr.start()

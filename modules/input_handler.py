@@ -107,7 +107,7 @@ def get_inputs():
                 ch = input("\nName of the channel:")
                 print("\nChecking if the channel is available...")
                 if not ch.__contains__("@"):
-                    resp = isChannel(ch)
+                    resp = is_channel(ch)
             name = ch
 
         if type == 2:
@@ -121,7 +121,7 @@ def get_inputs():
                 ca = input("\nName of the category:")
                 print("\nChecking if the category is available...")
                 if not ca.__contains__("@"):
-                    resp = isCategory(ca)
+                    resp = is_category(ca)
             name = ca
 
             cls()
@@ -217,10 +217,10 @@ def check_inputs(name,nclips,range,iPath,type,langs):
 
     # Check name
     if type==1:
-        if not isChannel(name):
+        if not is_channel(name):
             return False,None
     if type==2:
-        if not isCategory(name):
+        if not is_category(name):
             return False,None
     
     # Check nclips
