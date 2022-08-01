@@ -1,6 +1,7 @@
 from PIL import Image,ImageDraw,ImageFont
 from modules.configHandler import *
 from modules.clipEditor import Slide
+from modules.cmd_logs import cls
 import sys
 
 def create_text_slide(slide):
@@ -21,14 +22,14 @@ def create_text_slide(slide):
     breakpoint = img_fraction * slide.size[0]
     jumpsize = 50
     fontsize = 1
-    font = ImageFont.truetype(f'./res/{slide.font_name}.ttf', fontsize)
+    font = ImageFont.truetype(f'./res/{slide.fontName}.ttf', fontsize)
     while True:
         if font.getsize(slide.text)[0] < breakpoint:
             fontsize += jumpsize
         else:
             jumpsize = jumpsize // 2
             fontsize -= jumpsize
-        font = ImageFont.truetype(f'./res/{slide.font_name}.ttf', fontsize)
+        font = ImageFont.truetype(f'./res/{slide.fontName}.ttf', fontsize)
         if jumpsize <= 1:
             break
 
@@ -48,8 +49,8 @@ def create_intro(size,numberOfClips=10,channel="channel",time="all"):
         time_period="all time"
     create_text_slide(Slide(text=f"Top {numberOfClips} best {channel}'s clips of {time_period}",
                         size=size,
-                        file_name=f"intro",
-                        font_name=get_intro_font_name(),
+                        fileName=f"intro",
+                        fontName=get_intro_font_name(),
                         textRatio=get_intro_text_ratio(),
                         customBg=get_intro_custom_bg(),
                         bgName=get_intro_bg_name()))
@@ -58,8 +59,8 @@ def create_intro(size,numberOfClips=10,channel="channel",time="all"):
 def create_transition(size,number):
     create_text_slide(Slide(text=f"Clip #{number}",
                         size=size,
-                        file_name=f"transition{number}",
-                        font_name=get_ranking_font_name(),
+                        fileName=f"transition{number}",
+                        fontName=get_ranking_font_name(),
                         textRatio=get_ranking_text_ratio(),
                         customBg=get_ranking_custom_bg(),
                         bgName=get_ranking_bg_name()))
@@ -75,8 +76,41 @@ def create_outro(size):
                         bgName=get_outro_bg_name()))
     return
 
-size = (1280,720)    
+def main():
+    slideSize = (1920,1080)
+    selection = None
+    while selection not in range(1,5):
+        cls()
+        print(f"\n\t FONT TESTER\n\n 1) Test INTRO\n 2) Test RANKING\n 3) Test OUTRO\n 4) Set size (current: {slideSize})\n 5) Quit\n")
+        try:
+            selection = int(input("Your choice: "))
+        except:
+            continue
+        if selection == 1:
+            create_intro(slideSize)
+            selection = None
+        if selection == 2:
+            create_transition(slideSize,10)
+            selection = None
+        if selection == 3:
+            create_outro(slideSize)
+            selection = None
+        if selection == 4:
+            while True:
+                old = slideSize
+                try:
+                    cls()
+                    print("\n\t Enter slide size\n")
+                    slideSize = (int(input(" Width: ")),int(input("\n Height: ")))
+                    selection = None
+                    break
+                except:
+                    slideSize = old
 
-create_intro(size)
-create_transition(size,0)
-create_outro(size)
+        if selection == 5:
+            exit()
+
+
+
+if __name__ == '__main__':
+    main()
