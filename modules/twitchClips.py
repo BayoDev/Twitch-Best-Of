@@ -4,10 +4,12 @@ import requests as rs
 from bs4 import BeautifulSoup as bs
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
 import time
 import urllib.request 
 import os
 import logging
+
 
 class Clip:
     url: str            # Url of the clip
@@ -61,9 +63,9 @@ def get_loaded_page_content(url: str,type:str,clicks:list[str]=[],delay: int=Non
     driver.get(url)
 
     if type=='channel' or type=='category':
-        WebDriverWait(driver,60).until(lambda test : len(driver.find_elements_by_tag_name('article'))!=0)
+        WebDriverWait(driver,60).until(lambda test : len(driver.find_elements(By.TAG_NAME,'article'))!=0)
     if type=='clip':
-        WebDriverWait(driver,60).until(lambda test : len(driver.find_elements_by_tag_name('video'))!=0)
+        WebDriverWait(driver,60).until(lambda test : len(driver.find_elements(By.TAG_NAME,'video'))!=0)
         ready = False
         while not ready:
             html_data = bs(driver.page_source,'html.parser')
@@ -77,7 +79,7 @@ def get_loaded_page_content(url: str,type:str,clicks:list[str]=[],delay: int=Non
         
     if len(clicks)!=0:
         for el in clicks:
-            div = driver.find_element_by_xpath(el)
+            div = driver.find_element(By.XPATH,el)
             div.click()
     else:
         response = driver.page_source
@@ -85,7 +87,7 @@ def get_loaded_page_content(url: str,type:str,clicks:list[str]=[],delay: int=Non
         return response
 
     if type=='category':
-        WebDriverWait(driver,60).until(lambda test : len(driver.find_elements_by_tag_name('article'))!=0)
+        WebDriverWait(driver,60).until(lambda test : len(driver.find_elements(By.TAG_NAME,'article'))!=0)
     if type==None:
         time.sleep(delay)
             
@@ -103,7 +105,7 @@ def fetch_clips_category(cat_name: str,range: str="7d",max: int=None,languages: 
     
     if range != "24h" and range != "7d" and range != "30d" and range != "all":
         raise Exception("Range not valid, allowed ranges: 24h, 7d, 30d, all")
-    language_codes = ["//button[@data-test-selector='language-select-menu__toggle-button']"]
+    language_codes = ["//div[@data-test-selector='toggle-balloon-wrapper__mouse-enter-detector']"]
     for lg in languages:
         language_codes.append(f'//div[@data-language-code="{lg}"]')
     data = bs(get_loaded_page_content(f"https://www.twitch.tv/directory/game/{cat_name}/clips?range={range}",type='category',clicks=language_codes),'html.parser')
