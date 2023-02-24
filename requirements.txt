@@ -5,3 +5,5 @@ configparser
 requests
 selenium
 urllib3
+colorama
+cv2
