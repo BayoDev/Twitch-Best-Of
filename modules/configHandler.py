@@ -17,7 +17,10 @@ def config_init(bypass: bool=False,verbose: bool=False) -> None:
     config_object['OUTPUT'] = {
         "title":"clipsMontage",
         "cmdOnly":"False",
-        "outPath":"." 
+        "outPath":".",
+        "autoRes": True,
+        "widthRes": 1920,
+        "heightRes": 1080
     }
     config_object['INTRO']={
         "activate":"False",
@@ -86,6 +89,41 @@ def get_out_path():
         raise Exception("Field does not exists!")
     return response
 
+def get_auto_res():
+    global PATH
+    config_object = ConfigParser()
+    config_object.read(PATH)
+    try:
+        response = config_object["OUTPUT"]["autoRes"]
+    except:
+        raise Exception("Field does not exists!")
+    if response == "False":
+        response=False
+        return response
+    if response == "True":
+        response=True
+        return response
+    raise Exception("Error in config file")
+
+def get_width_res():
+    global PATH
+    config_object = ConfigParser()
+    config_object.read(PATH)
+    try:
+        response = config_object["OUTPUT"]["widthRes"]
+    except:
+        raise Exception("Field does not exists!")
+    return int(response)
+
+def get_height_res():
+    global PATH
+    config_object = ConfigParser()
+    config_object.read(PATH)
+    try:
+        response = config_object["OUTPUT"]["heightRes"]
+    except:
+        raise Exception("Field does not exists!")
+    return int(response)
 
 #---INTRO---
 

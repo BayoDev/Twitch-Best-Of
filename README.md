@@ -66,6 +66,9 @@ OUTPUT | DESCRIPTION
 title  | Name of the output video
 cmdOnly| Set this to true if can use only a cmd interface
 outPath | This is used only if cmdOnly is True and set the directory where the final video will be saved
+autoRes | False to disable
+widthEes | Width resolution of the video if autoRes is disabled
+heightRes | Height resolution of the video if autoRes is disabled
 
 INTRO | DESCRIPTION
 --------|------------

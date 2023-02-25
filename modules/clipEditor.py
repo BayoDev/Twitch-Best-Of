@@ -2,6 +2,7 @@
 from moviepy.editor import *
 from PIL import Image,ImageDraw,ImageFont
 from modules.configHandler import *
+from .configHandler import *
 import random
 
 class Slide:
@@ -43,6 +44,8 @@ class Slide:
 def get_max_dimensions(filePath: str) -> tuple:
     # Return the max dimension among the video file 
     # in the filePath folder as a tuplet (width,height)
+    if not get_auto_res():
+        return (get_width_res(),get_height_res())
     import cv2
     heights = []
     widths = []
@@ -59,7 +62,7 @@ def get_video_dimension(fileName: str) -> int:
     # Return Width of a video file named fileName contained in the ./Clips folder
     import cv2
     vid = cv2.VideoCapture("./Clips/"+fileName)
-    return vid.get(cv2.CAP_PROP_FRAME_WIDTH)
+    return (vid.get(cv2.CAP_PROP_FRAME_WIDTH),vid.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
 def get_max_fps(filePath: str) -> int:
     # Return the highest fps among the video file contained in the filePath folder
@@ -175,9 +178,9 @@ def create_video(save_path: str=".",channel: str=None,time: str="7d") -> None:
     for i in range(numberOfClips,0,-1):
         if get_ranking_slide():
             clipList.append(create_transition(video_size,video_fps,i))
-        vid = VideoFileClip(f"./Clips/clip{i}.mp4")
-        if get_video_dimension(f"clip{i}.mp4") != video_size[0]:
-                vid = vid.resize(width=video_size[0])
+        vid = VideoFileClip(f"./Clips/clip{i}.mp4",fps_source='fps')
+        if get_video_dimension(f"clip{i}.mp4") != video_size:
+                vid = vid.resize(video_size)
         clipList.append(vid)
     
     #---Outro---
