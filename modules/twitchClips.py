@@ -105,7 +105,7 @@ def fetch_clips_category(cat_name: str,range: str="7d",max: int=None,languages: 
     
     if range != "24h" and range != "7d" and range != "30d" and range != "all":
         raise Exception("Range not valid, allowed ranges: 24h, 7d, 30d, all")
-    language_codes = ["//div[@data-test-selector='toggle-balloon-wrapper__mouse-enter-detector']"]
+    language_codes = ['//*[@id="browse-root-filter-sort-options"]/div/div[2]/div[1]/div[1]/div/div/div[1]/button/div/div[2]/div']
     for lg in languages:
         language_codes.append(f'//div[@data-language-code="{lg}"]')
     data = bs(get_loaded_page_content(f"https://www.twitch.tv/directory/game/{cat_name}/clips?range={range}",type='category',clicks=language_codes),'html.parser')
