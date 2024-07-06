@@ -1,5 +1,8 @@
 # <p align="center">Twitch-Best-Of-Gen</p>
 
+> [!WARNING]  
+> This repository is archived and no longer supported
+
 ![GitHub](https://img.shields.io/github/license/BayoDev/Twitch-Best-Of-Gen)
 ![GitHub top language](https://img.shields.io/github/languages/top/BayoDev/Twitch-Best-Of-Gen)
 ![GitHub issues](https://img.shields.io/github/issues/BayoDev/Twitch-Best-Of-Gen)
